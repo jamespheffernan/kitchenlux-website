@@ -16,33 +16,47 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      <section className="process-steps" style={{ backgroundColor: 'white', paddingTop: '60px' }}>
+      <section className="process-steps">
         <div className="container">
+          <div className="section-header">
+            <h2>Our Simple Process</h2>
+            <p>Renting premium kitchenware with KitchenLux is effortless</p>
+          </div>
           <div className="steps">
             <div className="step">
               <div className="step-number">1</div>
-              <h3>Choose Your Collection</h3>
-              <p>Browse our curated kitchenware collections or build your own custom set with exactly what you need for your vacation cooking plans.</p>
+              <div className="step-content">
+                <h3>Choose Your Collection</h3>
+                <p>Browse our curated kitchenware collections or build your own custom set with exactly what you need for your vacation cooking plans.</p>
+              </div>
             </div>
             <div className="step">
               <div className="step-number">2</div>
-              <h3>Book Online</h3>
-              <p>Enter your vacation dates and rental address. Select any add-ons like specialty items, appliances, or premium spice collections.</p>
+              <div className="step-content">
+                <h3>Book Online</h3>
+                <p>Enter your vacation dates and rental address. Select any add-ons like specialty items, appliances, or premium spice collections.</p>
+              </div>
             </div>
             <div className="step">
               <div className="step-number">3</div>
-              <h3>We Deliver</h3>
-              <p>Your kitchenware arrives in a secure case before your arrival, sanitized, inspected, and ready to use right away.</p>
+              <div className="step-content">
+                <h3>We Deliver</h3>
+                <p>Your kitchenware arrives in a secure case before your arrival, sanitized, inspected, and ready to use right away.</p>
+              </div>
             </div>
             <div className="step">
               <div className="step-number">4</div>
-              <h3>Cook & Enjoy</h3>
-              <p>Prepare delicious meals with professional-grade tools during your entire stay, enhancing your vacation experience.</p>
+              <div className="step-content">
+                <h3>Cook & Enjoy</h3>
+                <p>Prepare delicious meals with professional-grade tools during your entire stay, enhancing your vacation experience.</p>
+              </div>
             </div>
             <div className="step">
               <div className="step-number">5</div>
-              <h3>Easy Return</h3>
-              <p>Simply place everything back in the case. We'll pick it up after your departure—no cleaning required!</p>
+              <div className="step-content">
+                <h3>Easy Return</h3>
+                <p>Simply place everything back in the case. We'll pick it up after your departure—no cleaning required!</p>
+              </div>
             </div>
           </div>
         </div>
