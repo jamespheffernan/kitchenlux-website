@@ -17,6 +17,10 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import BookingPage from './pages/BookingPage';
 import ConfirmationPage from './pages/ConfirmationPage';
+import AboutPage from './pages/AboutPage';
+import HowItWorksPage from './pages/HowItWorksPage';
+import FAQPage from './pages/FAQPage';
+import ContactPage from './pages/ContactPage';
 
 // Collection Pages
 import BBQCollectionPage from './pages/collections/BBQCollectionPage';
@@ -34,6 +38,9 @@ import AdminUserEditPage from './pages/admin/AdminUserEditPage';
 import PrivateRoute from './components/routing/PrivateRoute';
 import AdminRoute from './components/routing/AdminRoute';
 
+// Import shared styles for About, FAQ, and How It Works pages
+import './pages/AboutFAQ.css';
+
 const App = () => {
   return (
     <Router>
@@ -50,6 +57,12 @@ const App = () => {
           <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
           <Route path="/booking" element={<PrivateRoute><BookingPage /></PrivateRoute>} />
           <Route path="/confirmation/:id" element={<ConfirmationPage />} />
+          
+          {/* Information Pages */}
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           
           {/* Collection Routes */}
           <Route path="/collections/bbq-collection" element={<BBQCollectionPage />} />
