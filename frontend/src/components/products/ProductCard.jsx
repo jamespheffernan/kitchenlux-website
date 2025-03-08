@@ -14,7 +14,15 @@ const ProductCard = ({ product }) => {
     <div className="product-card">
       <div className="product-image">
         <Link to={`/products/${product.slug}`}>
-          <img src={product.image.startsWith('http') ? product.image : `${product.image}`} alt={product.name} />
+          <img 
+            src={`${product.image}?${Date.now()}`} 
+            alt={product.name} 
+            loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://source.unsplash.com/random/800x600/?kitchen";
+            }}
+          />
         </Link>
         {product.isPopular && <span className="product-badge">Popular</span>}
       </div>

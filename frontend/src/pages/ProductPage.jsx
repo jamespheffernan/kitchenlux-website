@@ -134,8 +134,12 @@ const ProductPage = () => {
           <div className="product-gallery">
             <div className="main-image">
               <img 
-                src={product.image.startsWith('http') ? product.image : `${product.image}`} 
-                alt={product.name} 
+                src={`${product.image}?${Date.now()}`}
+                alt={product.name}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://source.unsplash.com/random/800x600/?kitchen";
+                }}
               />
             </div>
             {/* If we had multiple images, we'd show thumbnails here */}
