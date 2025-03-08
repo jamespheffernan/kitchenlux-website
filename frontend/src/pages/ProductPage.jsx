@@ -367,8 +367,9 @@ const ProductPage = () => {
                   <Link to={`/products/${related.slug}`}>
                     <div className="related-product-image">
                       <img 
-                        src={related.image.startsWith('http') ? related.image : `${related.image}`} 
-                        alt={related.name} 
+                        src={getProductImageUrl(related.slug)} 
+                        alt={related.name}
+                        onError={createImageErrorHandler(related.category?.toLowerCase() || 'kitchen')}
                       />
                     </div>
                     <h3>{related.name}</h3>
