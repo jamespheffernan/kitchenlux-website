@@ -17,7 +17,14 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+// Configure CORS for your Netlify frontend
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
@@ -27,12 +34,10 @@ app.use('/api/orders', orderRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-  // Any route that is not api will be redirected to index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
+  // In production, we'll let Netlify handle the frontend
+  // This API server will only handle /api routes
+  app.get('/', (req, res) => {
+    res.send('KitchenLux API is running. Frontend is hosted separately on Netlify.');
   });
 } else {
   app.get('/', (req, res) => {
