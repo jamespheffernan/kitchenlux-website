@@ -6,14 +6,14 @@ import './CollectionPage.css';
 const BBQCollectionPage = () => {
   const { addToCart } = useCart();
   const [activeTab, setActiveTab] = useState('description');
-  const [mainImage, setMainImage] = useState('images/chefs-kit.jpg');
+  const [mainImage, setMainImage] = useState('https://source.unsplash.com/vIm26fn_QKg/800x600');
 
   const handleAddToCart = () => {
     addToCart({
       _id: 'bbq-collection',
       name: 'BBQ Collection',
       price: 89.99,
-      image: 'images/chefs-kit.jpg'
+      image: 'https://source.unsplash.com/vIm26fn_QKg/800x600'
     }, 1);
   };
 
@@ -37,31 +37,39 @@ const BBQCollectionPage = () => {
         <div className="container">
           <div className="product-details-container">
             <div className="product-gallery">
-              <img src={mainImage} alt="BBQ Collection" className="gallery-main-image" />
+              <img 
+                src={mainImage} 
+                alt="BBQ Collection" 
+                className="gallery-main-image" 
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://source.unsplash.com/random/800x600/?bbq";
+                }}
+              />
               <div className="gallery-thumbnails">
                 <img 
-                  src="images/chefs-kit.jpg" 
+                  src="https://source.unsplash.com/vIm26fn_QKg/150x150" 
                   alt="BBQ Collection - Main" 
-                  className={`gallery-thumbnail ${mainImage === 'images/chefs-kit.jpg' ? 'active' : ''}`}
-                  onClick={() => handleThumbnailClick('images/chefs-kit.jpg')}
+                  className={`gallery-thumbnail ${mainImage === 'https://source.unsplash.com/vIm26fn_QKg/800x600' ? 'active' : ''}`}
+                  onClick={() => handleThumbnailClick('https://source.unsplash.com/vIm26fn_QKg/800x600')}
                 />
                 <img 
-                  src="images/basic-cookware.jpg" 
+                  src="https://source.unsplash.com/ZHvM3XIOHoE/150x150" 
                   alt="BBQ Collection - Tools" 
-                  className={`gallery-thumbnail ${mainImage === 'images/basic-cookware.jpg' ? 'active' : ''}`}
-                  onClick={() => handleThumbnailClick('images/basic-cookware.jpg')}
+                  className={`gallery-thumbnail ${mainImage === 'https://source.unsplash.com/ZHvM3XIOHoE/800x600' ? 'active' : ''}`}
+                  onClick={() => handleThumbnailClick('https://source.unsplash.com/ZHvM3XIOHoE/800x600')}
                 />
                 <img 
-                  src="images/knife-set.jpg" 
+                  src="https://source.unsplash.com/xQwEjxwxpRg/150x150" 
                   alt="BBQ Collection - Spices" 
-                  className={`gallery-thumbnail ${mainImage === 'images/knife-set.jpg' ? 'active' : ''}`}
-                  onClick={() => handleThumbnailClick('images/knife-set.jpg')}
+                  className={`gallery-thumbnail ${mainImage === 'https://source.unsplash.com/xQwEjxwxpRg/800x600' ? 'active' : ''}`}
+                  onClick={() => handleThumbnailClick('https://source.unsplash.com/xQwEjxwxpRg/800x600')}
                 />
                 <img 
-                  src="images/knife-collection.jpg" 
+                  src="https://source.unsplash.com/4MiydWYqdas/150x150" 
                   alt="BBQ Collection - Storage Case" 
-                  className={`gallery-thumbnail ${mainImage === 'images/knife-collection.jpg' ? 'active' : ''}`}
-                  onClick={() => handleThumbnailClick('images/knife-collection.jpg')}
+                  className={`gallery-thumbnail ${mainImage === 'https://source.unsplash.com/4MiydWYqdas/800x600' ? 'active' : ''}`}
+                  onClick={() => handleThumbnailClick('https://source.unsplash.com/4MiydWYqdas/800x600')}
                 />
               </div>
             </div>
@@ -233,7 +241,14 @@ const BBQCollectionPage = () => {
           <div className="features-grid">
             <div className="feature-card product-card">
               <div className="product-image">
-                <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit" />
+                <img 
+                  src="https://source.unsplash.com/sA3wymYqyaI/400x300" 
+                  alt="Italian Cuisine Kit"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://source.unsplash.com/random/400x300/?pasta";
+                  }}
+                />
               </div>
               <h3 className="product-title">Italian Cuisine Kit</h3>
               <p>Everything you need for authentic Italian cooking.</p>
@@ -245,7 +260,14 @@ const BBQCollectionPage = () => {
             </div>
             <div className="feature-card product-card">
               <div className="product-image">
-                <img src="images/chefs-kit.jpg" alt="Chef's Kit" />
+                <img 
+                  src="https://source.unsplash.com/NQkdnQh-7X4/400x300"
+                  alt="Chef's Kit"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://source.unsplash.com/random/400x300/?chef";
+                  }}
+                />
               </div>
               <h3 className="product-title">Chef's Kit</h3>
               <p>Professional-grade kitchenware for culinary enthusiasts.</p>
@@ -257,7 +279,14 @@ const BBQCollectionPage = () => {
             </div>
             <div className="feature-card product-card">
               <div className="product-image">
-                <img src="images/spice-collection.jpg" alt="Spice Collection" />
+                <img 
+                  src="https://source.unsplash.com/dZKiXR9FYcM/400x300"
+                  alt="Spice Collection"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://source.unsplash.com/random/400x300/?spice";
+                  }}
+                />
               </div>
               <h3 className="product-title">Spice Collection</h3>
               <p>Essential spices in glass jars with labels.</p>

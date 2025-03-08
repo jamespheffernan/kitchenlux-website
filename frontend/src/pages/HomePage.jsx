@@ -35,7 +35,14 @@ const HomePage = () => {
               <Link to="/how-it-works" className="btn btn-outline" style={{ marginLeft: '10px' }}>Learn More</Link>
             </div>
             <div className="hero-image">
-              <img src="/images/kitchen-hero.jpg" alt="Premium kitchenware" />
+              <img 
+                src="https://source.unsplash.com/XoByiBymX20/1200x800" 
+                alt="Premium kitchenware"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://source.unsplash.com/random/1200x800/?kitchen";
+                }}
+              />
             </div>
           </div>
         </div>
@@ -85,7 +92,15 @@ const HomePage = () => {
               {topProducts.map((product) => (
                 <div key={product._id} className="collection-card">
                   <div className="collection-image">
-                    <img src={product.image.startsWith('http') ? product.image : `${product.image}`} alt={product.name} />
+                    <img 
+                      src={`${product.image}?${Date.now()}`} 
+                      alt={product.name}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://source.unsplash.com/random/800x600/?kitchen";
+                      }}
+                    />
                   </div>
                   <div className="collection-content">
                     <h3>{product.name}</h3>
