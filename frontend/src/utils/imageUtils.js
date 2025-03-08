@@ -141,8 +141,11 @@ export const getContentImageUrl = (imageName, size = '800x600') => {
   // Get Unsplash ID for this content image or use default
   const unsplashId = CONTENT_IMAGE_MAP[baseImageName] || CONTENT_IMAGE_MAP.default;
   
-  // Use Unsplash source with our image ID
-  return `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&w=${size.split('x')[0]}&h=${size.split('x')[1]}&q=80`;
+  // Parse the size values
+  const [width, height] = size.split('x').map(Number);
+  
+  // Use source.unsplash.com which is more reliable for direct embedding
+  return `https://source.unsplash.com/${unsplashId}/${width}x${height}`;
 };
 
 /**
