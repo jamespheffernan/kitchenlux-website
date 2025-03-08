@@ -45,7 +45,7 @@
 }
 
 .product-info {
-  padding: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -70,7 +70,7 @@
 .product-description {
   color: #666;
   font-size: 14px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   line-height: 1.6;
   flex-grow: 1;
 }
@@ -84,13 +84,15 @@
 
 .product-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .product-actions a,
 .product-actions button {
   flex: 1;
   font-size: 14px;
+  padding: 12px 16px;
 }
 
 @media (max-width: 768px) {
@@ -99,7 +101,7 @@
   }
   
   .product-info {
-    padding: 15px;
+    padding: 20px;
   }
   
   .product-title {
@@ -112,5 +114,10 @@
   
   .product-actions {
     flex-direction: column;
+  }
+  
+  .product-actions a,
+  .product-actions button {
+    padding: 10px 12px;
   }
 }
