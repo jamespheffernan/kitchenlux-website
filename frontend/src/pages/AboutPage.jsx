@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AboutFAQ.css'; // Shared styles for info pages
+import { getContentImageUrl, createContentImageErrorHandler } from '../utils/imageUtils';
 
 const AboutPage = () => {
   return (
@@ -19,7 +20,11 @@ const AboutPage = () => {
         <div className="container">
           <div className="about-content">
             <div className="about-image">
-              <img src="/images/about-founders.jpg" alt="KitchenLux founders" />
+              <img 
+                src={getContentImageUrl("about-founders", "800x600")} 
+                alt="KitchenLux founders"
+                onError={createContentImageErrorHandler("about-founders")}
+              />
             </div>
             <div className="about-text">
               <h2>Our Story</h2>
@@ -81,7 +86,11 @@ const AboutPage = () => {
           <div className="team-grid">
             <div className="team-member">
               <div className="team-member-image">
-                <img src="/images/team-ceo.jpg" alt="Michael Chen" />
+                <img 
+                  src={getContentImageUrl("team-ceo", "400x400")} 
+                  alt="Michael Chen"
+                  onError={createContentImageErrorHandler("team-ceo")}
+                />
               </div>
               <h3 className="team-member-name">Michael Chen</h3>
               <p className="team-member-title">Co-Founder & CEO</p>
@@ -89,7 +98,11 @@ const AboutPage = () => {
             </div>
             <div className="team-member">
               <div className="team-member-image">
-                <img src="/images/team-coo.jpg" alt="Sarah Chen" />
+                <img 
+                  src={getContentImageUrl("team-coo", "400x400")} 
+                  alt="Sarah Chen"
+                  onError={createContentImageErrorHandler("team-coo")}
+                />
               </div>
               <h3 className="team-member-name">Sarah Chen</h3>
               <p className="team-member-title">Co-Founder & COO</p>
@@ -97,7 +110,11 @@ const AboutPage = () => {
             </div>
             <div className="team-member">
               <div className="team-member-image">
-                <img src="/images/team-chef.jpg" alt="James Rodriguez" />
+                <img 
+                  src={getContentImageUrl("team-chef", "400x400")} 
+                  alt="James Rodriguez"
+                  onError={createContentImageErrorHandler("team-chef")}
+                />
               </div>
               <h3 className="team-member-name">James Rodriguez</h3>
               <p className="team-member-title">Head of Culinary Curation</p>
@@ -105,7 +122,11 @@ const AboutPage = () => {
             </div>
             <div className="team-member">
               <div className="team-member-image">
-                <img src="/images/team-experience.jpg" alt="Emma Kim" />
+                <img 
+                  src={getContentImageUrl("team-developer", "400x400")} 
+                  alt="Emma Kim"
+                  onError={createContentImageErrorHandler("team-developer")}
+                />
               </div>
               <h3 className="team-member-name">Emma Kim</h3>
               <p className="team-member-title">Customer Experience Director</p>
@@ -113,7 +134,11 @@ const AboutPage = () => {
             </div>
             <div className="team-member">
               <div className="team-member-image">
-                <img src="/images/team-logistics.jpg" alt="David Martinez" />
+                <img 
+                  src={getContentImageUrl("team-logistics", "400x400")} 
+                  alt="David Martinez"
+                  onError={createContentImageErrorHandler("team-logistics")}
+                />
               </div>
               <h3 className="team-member-name">David Martinez</h3>
               <p className="team-member-title">Logistics Manager</p>
@@ -121,7 +146,11 @@ const AboutPage = () => {
             </div>
             <div className="team-member">
               <div className="team-member-image">
-                <img src="/images/team-quality.jpg" alt="Olivia Jackson" />
+                <img 
+                  src={getContentImageUrl("team-support", "400x400")} 
+                  alt="Olivia Jackson"
+                  onError={createContentImageErrorHandler("team-support")}
+                />
               </div>
               <h3 className="team-member-name">Olivia Jackson</h3>
               <p className="team-member-title">Quality Control Specialist</p>

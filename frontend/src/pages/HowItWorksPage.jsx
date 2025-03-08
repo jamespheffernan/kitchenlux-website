@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AboutFAQ.css'; // Shared styles for info pages
+import { getContentImageUrl, createContentImageErrorHandler } from '../utils/imageUtils';
 
 const HowItWorksPage = () => {
   return (
@@ -56,7 +57,11 @@ const HowItWorksPage = () => {
           
           <div className="feature-content">
             <div className="feature-image">
-              <img src="/images/premium-kitchenware.jpg" alt="Premium kitchenware collection" />
+              <img 
+                src={getContentImageUrl("premium-kitchenware", "800x600")} 
+                alt="Premium kitchenware collection" 
+                onError={createContentImageErrorHandler("premium-kitchenware")}
+              />
             </div>
             <div className="feature-text">
               <h3>Professional-Grade Quality</h3>
@@ -67,7 +72,11 @@ const HowItWorksPage = () => {
           
           <div className="feature-content reverse">
             <div className="feature-image">
-              <img src="/images/sanitization.jpg" alt="Sanitization process" />
+              <img 
+                src={getContentImageUrl("sanitization", "800x600")} 
+                alt="Sanitization process" 
+                onError={createContentImageErrorHandler("sanitization")}
+              />
             </div>
             <div className="feature-text">
               <h3>Impeccable Cleanliness</h3>
@@ -78,7 +87,11 @@ const HowItWorksPage = () => {
           
           <div className="feature-content">
             <div className="feature-image">
-              <img src="/images/delivery-service.jpg" alt="Delivery service" />
+              <img 
+                src={getContentImageUrl("delivery-service", "800x600")} 
+                alt="Delivery service" 
+                onError={createContentImageErrorHandler("delivery-service")}
+              />
             </div>
             <div className="feature-text">
               <h3>Seamless Logistics</h3>

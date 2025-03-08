@@ -22,6 +22,21 @@ const HERO_IMAGES = {
   'default': 'atsUqIm3wxo'
 };
 
+// Map content images to placeholder Unsplash IDs for fallbacks
+const CONTENT_IMAGE_MAP = {
+  'premium-kitchenware': 'NQkdnQh-7X4',
+  'sanitization': 'Bqi__JQSQGs',
+  'delivery-service': 'CzfGz6JnGwE',
+  'about-founders': 'S3GrMiUhpGk',
+  'team-ceo': 'jyi2lL9L_5E',
+  'team-coo': 'rDEOVtE7vOs',
+  'team-chef': 'AJIqZDAUD7A',
+  'team-developer': 'tBAsczqnuKM',
+  'team-logistics': 'O3gLwP1CqpE',
+  'team-support': 'sibVwORYqs0',
+  'default': 'atsUqIm3wxo'
+};
+
 /**
  * Get a reliable image URL for a product using our proxy to avoid CORB issues
  * @param {string} productSlug - The slug of the product
@@ -114,6 +129,23 @@ export const getFallbackImageUrl = (category = 'kitchen', size = '800x600') => {
 };
 
 /**
+ * Get a placeholder image URL for content images
+ * @param {string} imageName - The name of the image from the content-images directory
+ * @param {string} size - The size of the image (default: 800x600)
+ * @returns {string} - The image URL
+ */
+export const getContentImageUrl = (imageName, size = '800x600') => {
+  // Extract just the base filename without path or extension
+  const baseImageName = imageName.replace(/^\/images\//, '').replace(/\.\w+$/, '').toLowerCase();
+  
+  // Get Unsplash ID for this content image or use default
+  const unsplashId = CONTENT_IMAGE_MAP[baseImageName] || CONTENT_IMAGE_MAP.default;
+  
+  // Use Unsplash source with our image ID
+  return `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&w=${size.split('x')[0]}&h=${size.split('x')[1]}&q=80`;
+};
+
+/**
  * Create an onError handler for image elements
  * @param {string} category - The category to use for the fallback
  * @param {string} size - The size of the image
@@ -123,5 +155,18 @@ export const createImageErrorHandler = (category = 'kitchen', size = '800x600') 
   return (e) => {
     e.target.onerror = null; // Prevent infinite error loops
     e.target.src = getFallbackImageUrl(category, size);
+  };
+};
+
+/**
+ * Create an onError handler for content images
+ * @param {string} imageName - The name of the content image
+ * @param {string} size - The size of the image
+ * @returns {Function} - The onError handler function
+ */
+export const createContentImageErrorHandler = (imageName, size = '800x600') => {
+  return (e) => {
+    e.target.onerror = null; // Prevent infinite error loops
+    e.target.src = getContentImageUrl(imageName, size);
   };
 };
