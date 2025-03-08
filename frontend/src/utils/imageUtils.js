@@ -22,19 +22,19 @@ const HERO_IMAGES = {
   'default': 'atsUqIm3wxo'
 };
 
-// Map content images to placeholder Unsplash IDs for fallbacks
+// Map content images to placeholder Unsplash photo IDs for fallbacks
 const CONTENT_IMAGE_MAP = {
-  'premium-kitchenware': 'NQkdnQh-7X4',
-  'sanitization': 'Bqi__JQSQGs',
-  'delivery-service': 'CzfGz6JnGwE',
-  'about-founders': 'S3GrMiUhpGk',
-  'team-ceo': 'jyi2lL9L_5E',
-  'team-coo': 'rDEOVtE7vOs',
-  'team-chef': 'AJIqZDAUD7A',
-  'team-developer': 'tBAsczqnuKM',
-  'team-logistics': 'O3gLwP1CqpE',
-  'team-support': 'sibVwORYqs0',
-  'default': 'atsUqIm3wxo'
+  'premium-kitchenware': 'GUyAQfLlTSM',
+  'sanitization': 'qH-JPcfkU2I',
+  'delivery-service': '_HqHX3LBN18',
+  'about-founders': 'iusJ25iYu1c',
+  'team-ceo': 'mEZ3PoFGs_k',
+  'team-coo': 'IF9TK5Uy-KI',
+  'team-chef': 'VJ2s0c20qCo',
+  'team-developer': 'sibVwORYqs0',
+  'team-logistics': 'I_394sxx0ec',
+  'team-support': 'rZ_FdMZ0weY',
+  'default': 'Kj9Z13xTwjE'
 };
 
 /**
