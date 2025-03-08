@@ -26,7 +26,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Serve static assets if in production
-const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
