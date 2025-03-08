@@ -22,12 +22,25 @@ const app = express();
 // Middleware
 // Configure CORS for your Netlify frontend
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || '*',
+  origin: ['https://kitchenlux.netlify.app', 'http://localhost:3000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));
+
+// Also add a pre-flight response for browsers
+app.options('*', cors(corsOptions));
+
+// Add explicit CORS headers as a backup
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://kitchenlux.netlify.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 app.use(express.json());
 
 // Routes
