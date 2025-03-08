@@ -24,6 +24,7 @@ const HERO_IMAGES = {
 
 /**
  * Get a reliable image URL from Unsplash for a product
+ * Removed cache busting query parameter to avoid CORB issues
  * @param {string} productSlug - The slug of the product
  * @param {string} size - The size of the image (default: 800x600)
  * @returns {string} - The Unsplash URL
@@ -35,8 +36,8 @@ export const getProductImageUrl = (productSlug, size = '800x600') => {
   // Get the Unsplash photo ID for this product, or use default
   const photoId = PRODUCT_IMAGE_MAP[baseSlug] || PRODUCT_IMAGE_MAP.default;
   
-  // Return the Unsplash source URL with cache busting
-  return `https://source.unsplash.com/${photoId}/${size}?t=${Date.now()}`;
+  // Return the Unsplash source URL without query parameters
+  return `https://source.unsplash.com/${photoId}/${size}`;
 };
 
 /**
@@ -58,12 +59,30 @@ export const getHeroImageUrl = (imageName, size = '1200x800') => {
 
 /**
  * Get a fallback image URL if the main image fails to load
+ * Using fixed Unsplash photo IDs instead of search queries to avoid CORB issues
  * @param {string} category - The category to use for the fallback (default: 'kitchen')
  * @param {string} size - The size of the image (default: 800x600)
  * @returns {string} - The fallback URL
  */
 export const getFallbackImageUrl = (category = 'kitchen', size = '800x600') => {
-  return `https://source.unsplash.com/random/${size}/?${category}`;
+  // Map of categories to safe, direct Unsplash photo IDs
+  const FALLBACK_IMAGE_MAP = {
+    'kitchen': 'FV3GConVSss',
+    'cookware': 'h5yMpgOI5nI',
+    'utensils': 'ACt8ycSzpdE', 
+    'appliances': 'IQVFVH0N_UU',
+    'dining': 'sA3wymYqyaI',
+    'baking': 'oQvESMKUkzM',
+    'bbq': 'vIm26fn_QKg',
+    'holiday': 'Wc8k-KryEPM',
+    'default': 'FV3GConVSss'
+  };
+  
+  // Get the appropriate photo ID based on category or use default
+  const photoId = FALLBACK_IMAGE_MAP[category.toLowerCase()] || FALLBACK_IMAGE_MAP.default;
+  
+  // Return direct Unsplash URL without query parameters
+  return `https://source.unsplash.com/${photoId}/${size}`;
 };
 
 /**
