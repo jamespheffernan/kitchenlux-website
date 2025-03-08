@@ -159,24 +159,27 @@
 }
 
 .steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
   width: 100%;
   margin: 0 auto;
 }
 
 .step {
+  flex: 0 0 52%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 30px 25px;
+  padding: 25px 30px;
   background-color: var(--light);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
-  min-height: 200px;
+  width: 52%;
+  margin-bottom: 15px;
 }
 
 .step:hover {
@@ -545,13 +548,6 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .steps {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 900px;
-  }
-}
-
 @media (max-width: 768px) {
   .page-header {
     padding: 60px 0 30px;
@@ -571,15 +567,9 @@
     grid-template-columns: 1fr;
   }
   
-  .steps {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 700px;
-  }
-}
-
-@media (max-width: 576px) {
-  .steps {
-    grid-template-columns: 1fr;
-    max-width: 450px;
+  .step {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 500px;
   }
 }
