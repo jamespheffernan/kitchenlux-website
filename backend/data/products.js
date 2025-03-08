@@ -1,9 +1,9 @@
-// Use direct image URLs from Pexels and Unsplash for reliable hosting
+// Use Unsplash Source API which is designed for embedding and has no CORS issues
 const products = [
   {
     name: "Essential Kitchen Kit",
     slug: "essential-kitchen-kit",
-    image: "https://images.pexels.com/photos/4551832/pexels-photo-4551832.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/IQVFVH0N_UU/800x600",
     description: "The basics you need for everyday cooking during your stay. Each item is sanitized, inspected, and delivered to your vacation rental before your arrival.",
     category: "Essential",
     price: 49.0,
@@ -37,7 +37,7 @@ const products = [
   {
     name: "Professional Chef's Kit",
     slug: "professional-chefs-kit",
-    image: "https://images.pexels.com/photos/2544829/pexels-photo-2544829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/NQkdnQh-7X4/800x600",
     description: "Our most comprehensive collection with professional-grade tools. This premium kitchenware set includes high-carbon steel knives, heavy-bottomed cookware for even heat distribution, and precision tools.",
     category: "Chef",
     price: 89.0,
@@ -73,7 +73,7 @@ const products = [
   {
     name: "Baking Collection",
     slug: "baking-collection",
-    image: "https://images.pexels.com/photos/230743/pexels-photo-230743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/oQvESMKUkzM/800x600",
     description: "Specialized tools for creating delicious baked goods during your stay. This complete baking kit includes everything needed for cookies, cakes, bread, and more.",
     category: "Specialty",
     price: 65.0,
@@ -109,7 +109,7 @@ const products = [
   {
     name: "Italian Cuisine Kit",
     slug: "italian-cuisine-kit",
-    image: "https://images.pexels.com/photos/1435895/pexels-photo-1435895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/sA3wymYqyaI/800x600",
     description: "Everything you need for authentic Italian cooking. This specialized collection includes pasta-making tools, the perfect sauce pot, and authentic Italian kitchen implements.",
     category: "Specialty",
     price: 75.0,
@@ -144,7 +144,7 @@ const products = [
   {
     name: "Basic Cookware Set",
     slug: "basic-cookware-set",
-    image: "https://images.pexels.com/photos/3926134/pexels-photo-3926134.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/h5yMpgOI5nI/800x600",
     description: "Just the essential pots and pans for simple meal preparation. Perfect for those who just need the cooking vessels without additional tools.",
     category: "Essential",
     price: 39.0,
@@ -175,7 +175,7 @@ const products = [
   {
     name: "Knife Master Collection",
     slug: "knife-master-collection",
-    image: "https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/ACt8ycSzpdE/800x600",
     description: "Professional-grade knives for precision cutting and prep work. This collection features high-carbon steel blades with perfect balance and ergonomic handles.",
     category: "Chef",
     price: 55.0,
@@ -209,7 +209,7 @@ const products = [
   {
     name: "BBQ Collection",
     slug: "bbq-collection",
-    image: "https://images.pexels.com/photos/1482803/pexels-photo-1482803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/vIm26fn_QKg/800x600",
     description: "Premium outdoor cooking equipment for the ultimate BBQ experience. Our BBQ Collection includes everything you need for grilling and smoking at your vacation rental.",
     category: "Specialty",
     price: 89.99,
@@ -247,7 +247,7 @@ const products = [
   {
     name: "Holiday Cooking Kit",
     slug: "holiday-cooking-kit",
-    image: "https://images.pexels.com/photos/5765828/pexels-photo-5765828.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/Wc8k-KryEPM/800x600",
     description: "Everything you need to prepare an unforgettable holiday feast at your vacation rental. Our Holiday Cooking Kit includes premium cookware, bakeware, and specialty tools for holiday entertaining.",
     category: "Specialty",
     price: 99.99,
@@ -286,7 +286,7 @@ const products = [
   {
     name: "Asian Fusion Kit",
     slug: "asian-fusion-kit",
-    image: "https://images.pexels.com/photos/5836927/pexels-photo-5836927.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://source.unsplash.com/YZsvNs2GCPM/800x600",
     description: "Master the art of Asian cuisine with premium tools. This specialized collection includes woks, steamers, and authentic Asian kitchen implements.",
     category: "Specialty",
     price: 79.0,
