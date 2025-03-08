@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 // Proxy for Unsplash images
 router.get('/proxy/:photoId/:size', async (req, res) => {
@@ -8,16 +10,72 @@ router.get('/proxy/:photoId/:size', async (req, res) => {
     const { photoId, size } = req.params;
     const imageUrl = `https://source.unsplash.com/${photoId}/${size}`;
     
-    // Fetch image from Unsplash
-    const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    console.log(`Proxying image request for: ${imageUrl}`);
+    
+    // Using axios with timeout and proper error handling
+    const response = await axios({
+      method: 'get',
+      url: imageUrl,
+      responseType: 'arraybuffer',
+      timeout: 5000, // 5 second timeout
+      maxRedirects: 5,
+      validateStatus: status => status < 500 // Handle redirects properly
+    });
     
     // Set headers and return image
-    res.set('Content-Type', response.headers['content-type']);
+    res.set('Content-Type', response.headers['content-type'] || 'image/jpeg');
     res.set('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
     res.send(response.data);
   } catch (error) {
     console.error('Image proxy error:', error.message);
-    res.status(500).send('Image fetch failed');
+    
+    // Fallback to local images if available
+    try {
+      const { photoId } = req.params;
+      
+      // Create mapping from Unsplash IDs to local files
+      const photoMapping = {
+        'IQVFVH0N_UU': 'essential-kit.jpg',
+        'NQkdnQh-7X4': 'chefs-kit.jpg',
+        'oQvESMKUkzM': 'baking-collection.jpg',
+        'sA3wymYqyaI': 'italian-cuisine.jpg',
+        'h5yMpgOI5nI': 'basic-cookware.jpg',
+        'ACt8ycSzpdE': 'knife-collection.jpg',
+        'vIm26fn_QKg': 'bbq-collection.jpg',
+        'Wc8k-KryEPM': 'holiday-kit.jpg',
+        'YZsvNs2GCPM': 'asian-fusion.jpg',
+        'default': 'essential-kit.jpg'
+      };
+      
+      // Try to find a fallback image based on the Unsplash ID
+      const filename = photoMapping[photoId] || photoMapping.default;
+      const imageDir = path.join(__dirname, '../../images/products');
+      const fallbackImage = path.join(imageDir, filename);
+      
+      if (fs.existsSync(fallbackImage)) {
+        console.log(`Using fallback image: ${fallbackImage}`);
+        const image = fs.readFileSync(fallbackImage);
+        res.set('Content-Type', 'image/jpeg');
+        res.set('Cache-Control', 'public, max-age=86400');
+        return res.send(image);
+      } else {
+        // If specific image not found, use any available image
+        const files = fs.readdirSync(imageDir);
+        if (files.length > 0) {
+          const randomImage = path.join(imageDir, files[0]);
+          console.log(`Using random fallback image: ${randomImage}`);
+          const image = fs.readFileSync(randomImage);
+          res.set('Content-Type', 'image/jpeg');
+          res.set('Cache-Control', 'public, max-age=86400');
+          return res.send(image);
+        }
+      }
+    } catch (fallbackError) {
+      console.error('Fallback image failed:', fallbackError.message);
+    }
+    
+    // If all else fails, send the error
+    res.status(500).send('Image fetch failed: ' + error.message);
   }
 });
 
