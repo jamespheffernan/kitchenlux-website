@@ -14,6 +14,9 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
+// Import seed functions (will be used if DB is empty)
+const { checkAndSeedProducts } = require('./utils/autoSeed');
+
 const app = express();
 
 // Middleware
@@ -51,6 +54,16 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  
+  // Check if database needs seeding and seed if necessary
+  if (process.env.NODE_ENV === 'production') {
+    try {
+      await checkAndSeedProducts();
+      console.log('Database check and seed process completed');
+    } catch (error) {
+      console.error('Error in auto-seed process:', error.message);
+    }
+  }
 });

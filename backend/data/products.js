@@ -1,8 +1,11 @@
+// Full URL to the images folder on Netlify
+const IMAGE_BASE_URL = 'https://kitchenlux.netlify.app/images';
+
 const products = [
   {
     name: "Essential Kitchen Kit",
     slug: "essential-kitchen-kit",
-    image: "/images/essential-kit.jpg",
+    image: `${IMAGE_BASE_URL}/essential-kit.jpg`,
     description: "The basics you need for everyday cooking during your stay. Each item is sanitized, inspected, and delivered to your vacation rental before your arrival.",
     category: "Essential",
     price: 49.0,
@@ -36,7 +39,7 @@ const products = [
   {
     name: "Professional Chef's Kit",
     slug: "professional-chefs-kit",
-    image: "/images/chefs-kit.jpg",
+    image: `${IMAGE_BASE_URL}/chefs-kit.jpg`,
     description: "Our most comprehensive collection with professional-grade tools. This premium kitchenware set includes high-carbon steel knives, heavy-bottomed cookware for even heat distribution, and precision tools.",
     category: "Chef",
     price: 89.0,
@@ -72,7 +75,7 @@ const products = [
   {
     name: "Baking Collection",
     slug: "baking-collection",
-    image: "/images/baking-collection.jpg",
+    image: `${IMAGE_BASE_URL}/baking-collection.jpg`,
     description: "Specialized tools for creating delicious baked goods during your stay. This complete baking kit includes everything needed for cookies, cakes, bread, and more.",
     category: "Specialty",
     price: 65.0,
@@ -108,7 +111,7 @@ const products = [
   {
     name: "Italian Cuisine Kit",
     slug: "italian-cuisine-kit",
-    image: "/images/italian-cuisine.jpg",
+    image: `${IMAGE_BASE_URL}/italian-cuisine.jpg`,
     description: "Everything you need for authentic Italian cooking. This specialized collection includes pasta-making tools, the perfect sauce pot, and authentic Italian kitchen implements.",
     category: "Specialty",
     price: 75.0,
@@ -143,7 +146,7 @@ const products = [
   {
     name: "Basic Cookware Set",
     slug: "basic-cookware-set",
-    image: "/images/basic-cookware.jpg",
+    image: `${IMAGE_BASE_URL}/basic-cookware.jpg`,
     description: "Just the essential pots and pans for simple meal preparation. Perfect for those who just need the cooking vessels without additional tools.",
     category: "Essential",
     price: 39.0,
@@ -174,7 +177,7 @@ const products = [
   {
     name: "Knife Master Collection",
     slug: "knife-master-collection",
-    image: "/images/knife-collection.jpg",
+    image: `${IMAGE_BASE_URL}/knife-collection.jpg`,
     description: "Professional-grade knives for precision cutting and prep work. This collection features high-carbon steel blades with perfect balance and ergonomic handles.",
     category: "Chef",
     price: 55.0,
@@ -208,7 +211,7 @@ const products = [
   {
     name: "BBQ Collection",
     slug: "bbq-collection",
-    image: "/images/knife-set.jpg",
+    image: `${IMAGE_BASE_URL}/bbq-collection.jpg`,
     description: "Premium outdoor cooking equipment for the ultimate BBQ experience. Our BBQ Collection includes everything you need for grilling and smoking at your vacation rental.",
     category: "Specialty",
     price: 89.99,
@@ -246,7 +249,7 @@ const products = [
   {
     name: "Holiday Cooking Kit",
     slug: "holiday-cooking-kit",
-    image: "/images/kitchen-hero.jpg",
+    image: `${IMAGE_BASE_URL}/holiday-kit.jpg`,
     description: "Everything you need to prepare an unforgettable holiday feast at your vacation rental. Our Holiday Cooking Kit includes premium cookware, bakeware, and specialty tools for holiday entertaining.",
     category: "Specialty",
     price: 99.99,
@@ -285,7 +288,7 @@ const products = [
   {
     name: "Asian Fusion Kit",
     slug: "asian-fusion-kit",
-    image: "/images/cookware.jpg",
+    image: `${IMAGE_BASE_URL}/cookware.jpg`,
     description: "Master the art of Asian cuisine with premium tools. This specialized collection includes woks, steamers, and authentic Asian kitchen implements.",
     category: "Specialty",
     price: 79.0,
