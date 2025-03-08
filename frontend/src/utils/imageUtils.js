@@ -29,20 +29,34 @@ const HERO_IMAGES = {
  * @returns {string} - The proxied image URL
  */
 export const getProductImageUrl = (productSlug, size = '800x600') => {
+  // Product slug to local image filename mapping
+  const PRODUCT_IMAGE_FILES = {
+    'essential-kit': 'basic-cookware',
+    'professional-chefs-kit': 'chefs-kit',
+    'baking-collection': 'italian-cuisine',
+    'italian-cuisine-kit': 'italian-cuisine',
+    'basic-cookware-set': 'basic-cookware',
+    'knife-master-collection': 'knife-collection',
+    'bbq-collection': 'bbq-collection',
+    'holiday-cooking-kit': 'bbq-collection',
+    'asian-fusion-kit': 'italian-cuisine',
+    'default': 'knife-collection'
+  };
+  
   // Extract the base slug without any query parameters
   const baseSlug = productSlug?.split('?')[0].toLowerCase().trim() || '';
   
-  // Get the Unsplash photo ID for this product, or use default
-  const photoId = PRODUCT_IMAGE_MAP[baseSlug] || PRODUCT_IMAGE_MAP.default;
+  // Get the appropriate image filename for this product
+  const imageName = PRODUCT_IMAGE_FILES[baseSlug] || PRODUCT_IMAGE_FILES.default;
   
-  // Use our backend proxy to avoid CORB issues
-  // This requests the image through our own domain, avoiding cross-origin issues
+  // Use our backend's direct image service
   const API_URL = import.meta.env.VITE_API_URL || 
     (import.meta.env.MODE === 'production' 
       ? 'https://kitchenlux-website.onrender.com/api'
       : 'http://localhost:5001/api');
       
-  return `${API_URL}/images/proxy/${photoId}/${size}`;
+  // Use direct image endpoint to avoid CORB and proxy issues
+  return `${API_URL}/images/direct/${imageName}`;
 };
 
 /**
@@ -55,16 +69,14 @@ export const getHeroImageUrl = (imageName, size = '1200x800') => {
   // Clean up the image name
   const cleanName = imageName?.replace(/\/images\//g, '').replace('.jpg', '').toLowerCase().trim() || '';
   
-  // Get the Unsplash photo ID for this hero image, or use default
-  const photoId = HERO_IMAGES[cleanName] || HERO_IMAGES.default;
-  
-  // Use our backend proxy to avoid CORB issues
+  // Use our backend's direct image service for reliability
   const API_URL = import.meta.env.VITE_API_URL || 
     (import.meta.env.MODE === 'production' 
       ? 'https://kitchenlux-website.onrender.com/api'
       : 'http://localhost:5001/api');
-      
-  return `${API_URL}/images/proxy/${photoId}/${size}`;
+  
+  // Use direct image endpoint for better reliability
+  return `${API_URL}/images/direct/kitchen-hero`;
 };
 
 /**
@@ -75,29 +87,30 @@ export const getHeroImageUrl = (imageName, size = '1200x800') => {
  * @returns {string} - The proxied fallback URL
  */
 export const getFallbackImageUrl = (category = 'kitchen', size = '800x600') => {
-  // Map of categories to safe, direct Unsplash photo IDs
+  // Map categories to local image filenames
   const FALLBACK_IMAGE_MAP = {
-    'kitchen': 'FV3GConVSss',
-    'cookware': 'h5yMpgOI5nI',
-    'utensils': 'ACt8ycSzpdE', 
-    'appliances': 'IQVFVH0N_UU',
-    'dining': 'sA3wymYqyaI',
-    'baking': 'oQvESMKUkzM',
-    'bbq': 'vIm26fn_QKg',
-    'holiday': 'Wc8k-KryEPM',
-    'default': 'FV3GConVSss'
+    'kitchen': 'basic-cookware',
+    'cookware': 'basic-cookware',
+    'utensils': 'knife-collection', 
+    'appliances': 'chefs-kit',
+    'dining': 'italian-cuisine',
+    'baking': 'italian-cuisine',
+    'bbq': 'bbq-collection',
+    'holiday': 'bbq-collection',
+    'default': 'knife-collection'
   };
   
-  // Get the appropriate photo ID based on category or use default
-  const photoId = FALLBACK_IMAGE_MAP[(category || '').toLowerCase()] || FALLBACK_IMAGE_MAP.default;
+  // Get the appropriate filename based on category
+  const imageName = FALLBACK_IMAGE_MAP[(category || '').toLowerCase()] || FALLBACK_IMAGE_MAP.default;
   
-  // Use our backend proxy to avoid CORB issues
+  // Use our backend's direct image service for reliability
   const API_URL = import.meta.env.VITE_API_URL || 
     (import.meta.env.MODE === 'production' 
       ? 'https://kitchenlux-website.onrender.com/api'
       : 'http://localhost:5001/api');
       
-  return `${API_URL}/images/proxy/${photoId}/${size}`;
+  // Use direct image endpoint to avoid CORB and proxy issues
+  return `${API_URL}/images/direct/${imageName}`;
 };
 
 /**

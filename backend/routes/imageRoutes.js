@@ -4,6 +4,39 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
+// Direct image serving endpoint for simple cases
+router.get('/direct/:name', (req, res) => {
+  try {
+    const { name } = req.params;
+    const safeFilename = name.replace(/\.\./g, '').replace(/\//g, ''); // Security
+    const imagePath = path.join(__dirname, '../../images/products', safeFilename + '.jpg');
+    
+    if (fs.existsSync(imagePath)) {
+      const image = fs.readFileSync(imagePath);
+      res.set('Content-Type', 'image/jpeg');
+      res.set('Cache-Control', 'public, max-age=86400');
+      return res.send(image);
+    } else {
+      // Fallback to any available image
+      const imageDir = path.join(__dirname, '../../images/products');
+      const files = fs.readdirSync(imageDir).filter(f => f.endsWith('.jpg'));
+      
+      if (files.length > 0) {
+        const fallbackImage = path.join(imageDir, files[0]);
+        const image = fs.readFileSync(fallbackImage);
+        res.set('Content-Type', 'image/jpeg');
+        res.set('Cache-Control', 'public, max-age=86400');
+        return res.send(image);
+      } else {
+        res.status(404).send('No images available');
+      }
+    }
+  } catch (error) {
+    console.error('Direct image error:', error.message);
+    res.status(500).send('Error serving image');
+  }
+});
+
 // Proxy for Unsplash images
 router.get('/proxy/:photoId/:size', async (req, res) => {
   try {
@@ -44,6 +77,9 @@ router.get('/proxy/:photoId/:size', async (req, res) => {
         'vIm26fn_QKg': 'bbq-collection.jpg',
         'Wc8k-KryEPM': 'holiday-kit.jpg',
         'YZsvNs2GCPM': 'asian-fusion.jpg',
+        'FV3GConVSss': 'essential-kit.jpg', // This is the one causing problems
+        'XoByiBymX20': 'kitchen-hero.jpg',
+        'atsUqIm3wxo': 'kitchen-hero.jpg',
         'default': 'essential-kit.jpg'
       };
       
