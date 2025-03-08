@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .cart-page {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .cart-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            overflow: hidden;
+        }
+        
+        .cart-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+        }
+        
+        .cart-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary), var(--primary-dark));
+            border-radius: 3px;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .cart-empty-icon {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .cart-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #eee;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .cart-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .cart-product {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .cart-product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(146, 109, 38, 0.1);
+        }
+        
+        .cart-product-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .cart-product-type {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .cart-quantity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .cart-quantity button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .cart-quantity button:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .cart-quantity-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 5px;
+            font-size: 14px;
+        }
+        
+        .cart-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .cart-remove {
+            cursor: pointer;
+            color: #999;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border-radius: 50%;
+        }
+        
+        .cart-remove:hover {
+            color: #ff3b30;
+            background-color: rgba(255, 59, 48, 0.1);
+        }
+        
+        .cart-footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .cart-coupon {
+            display: flex;
+            gap: 10px;
+            max-width: 400px;
+        }
+        
+        .cart-coupon input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .cart-coupon button {
+            padding: 12px 20px;
+            white-space: nowrap;
+        }
+        
+        .cart-summary {
+            background-color: rgba(146, 109, 38, 0.03);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            min-width: 300px;
+            border-left: 3px solid var(--primary-light);
+        }
+        
+        .cart-summary h3 {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(146, 109, 38, 0.1);
+            color: var(--primary-dark);
+        }
+        
+        .cart-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .cart-summary-item.total {
+            font-size: 18px;
+            font-weight: 600;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 1px solid rgba(146, 109, 38, 0.1);
+        }
+        
+        .cart-summary-item.total .value {
+            color: var(--primary);
+        }
+        
+        .cart-summary .btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .cart-continue {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .cart-continue a {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .cart-continue a:hover {
+            color: var(--primary-dark);
+        }
+        
+        @media (max-width: 992px) {
+            .cart-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .cart-coupon {
+                max-width: 100%;
+            }
+            
+            .cart-summary {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cart-table {
+                display: block;
+            }
+            
+            .cart-table thead {
+                display: none;
+            }
+            
+            .cart-table tbody, .cart-table tr, .cart-table td {
+                display: block;
+                width: 100%;
+            }
+            
+            .cart-table tr {
+                margin-bottom: 20px;
+                border-bottom: 2px solid #eee;
+                padding-bottom: 20px;
+            }
+            
+            .cart-table td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+                border-bottom: none;
+            }
+            
+            .cart-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-weight: 600;
+                color: var(--primary-dark);
+            }
+            
+            .cart-product {
+                justify-content: flex-end;
+            }
+            
+            .cart-quantity {
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">3</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > Shopping Cart
+            </div>
+            <h1>Your Shopping Cart</h1>
+            <p>Review your selected items before proceeding to checkout.</p>
+        </div>
+    </section>
+    
+    <section class="cart-page">
+        <div class="container">
+            <div class="cart-container">
+                <h2 class="cart-title">Shopping Cart (3 items)</h2>
+                
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Product</th>
+                            <th style="width: 15%;">Quantity</th>
+                            <th style="width: 15%;">Price</th>
+                            <th style="width: 15%;">Subtotal</th>
+                            <th style="width: 5%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Product">
+                                <div class="cart-product">
+                                    <img src="images/chefs-kit.jpg" alt="Professional Chef's Kit" class="cart-product-image">
+                                    <div>
+                                        <div class="cart-product-title">Professional Chef's Kit</div>
+                                        <div class="cart-product-type">Premium Collection</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Quantity">
+                                <div class="cart-quantity">
+                                    <button class="cart-quantity-minus">-</button>
+                                    <input type="number" value="1" min="1" max="10" class="cart-quantity-input">
+                                    <button class="cart-quantity-plus">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="cart-price">$89.00/week</td>
+                            <td data-label="Subtotal" class="cart-price">$89.00</td>
+                            <td>
+                                <div class="cart-remove">×</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">
+                                <div class="cart-product">
+                                    <img src="images/baking-collection.jpg" alt="Baking Collection" class="cart-product-image">
+                                    <div>
+                                        <div class="cart-product-title">Baking Collection</div>
+                                        <div class="cart-product-type">Specialty Collection</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Quantity">
+                                <div class="cart-quantity">
+                                    <button class="cart-quantity-minus">-</button>
+                                    <input type="number" value="1" min="1" max="10" class="cart-quantity-input">
+                                    <button class="cart-quantity-plus">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="cart-price">$65.00/week</td>
+                            <td data-label="Subtotal" class="cart-price">$65.00</td>
+                            <td>
+                                <div class="cart-remove">×</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">
+                                <div class="cart-product">
+                                    <img src="images/spice-collection.jpg" alt="Premium Spice Collection" class="cart-product-image">
+                                    <div>
+                                        <div class="cart-product-title">Premium Spice Collection</div>
+                                        <div class="cart-product-type">Add-on Item</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Quantity">
+                                <div class="cart-quantity">
+                                    <button class="cart-quantity-minus">-</button>
+                                    <input type="number" value="1" min="1" max="10" class="cart-quantity-input">
+                                    <button class="cart-quantity-plus">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="cart-price">$15.00/week</td>
+                            <td data-label="Subtotal" class="cart-price">$15.00</td>
+                            <td>
+                                <div class="cart-remove">×</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="cart-footer">
+                    <div class="cart-coupon">
+                        <input type="text" placeholder="Coupon code">
+                        <button class="btn">Apply Coupon</button>
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h3>Cart Summary</h3>
+                        <div class="cart-summary-item">
+                            <div class="label">Subtotal</div>
+                            <div class="value">$169.00</div>
+                        </div>
+                        <div class="cart-summary-item">
+                            <div class="label">Delivery Fee</div>
+                            <div class="value">$0.00</div>
+                        </div>
+                        <div class="cart-summary-item">
+                            <div class="label">Tax (8%)</div>
+                            <div class="value">$13.52</div>
+                        </div>
+                        <div class="cart-summary-item total">
+                            <div class="label">Total</div>
+                            <div class="value">$182.52</div>
+                        </div>
+                        <a href="book-now.html" class="btn">Proceed to Checkout</a>
+                    </div>
+                </div>
+                
+                <div class="cart-continue">
+                    <a href="catalog.html">← Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features" style="background-color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>You Might Also Like</h2>
+                <p>Complete your kitchenware experience with these popular items.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit">
+                    </div>
+                    <h3 class="product-title">Italian Cuisine Kit</h3>
+                    <p>Everything you need for authentic Italian cooking.</p>
+                    <div class="product-price">$75/week</div>
+                    <div class="product-actions">
+                        <a href="italian-cuisine.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/cookware.jpg" alt="Asian Fusion Kit">
+                    </div>
+                    <h3 class="product-title">Asian Fusion Kit</h3>
+                    <p>Master the art of Asian cuisine with premium tools.</p>
+                    <div class="product-price">$79/week</div>
+                    <div class="product-actions">
+                        <a href="asian-fusion.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/damage-protection.jpg" alt="Premium Damage Protection">
+                    </div>
+                    <h3 class="product-title">Premium Damage Protection</h3>
+                    <p>Full coverage for any accidental damage during your rental.</p>
+                    <div class="product-price">$10/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Elevate Your Vacation Culinary Experience?</h2>
+            <p>Book your premium kitchenware kit today and transform every meal into a gourmet experience during your next getaway.</p>
+            <a href="book-now.html" class="btn">Complete Your Booking</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="scripts.js"></script>
+    <script>
+        // Cart page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity buttons functionality
+            const minusButtons = document.querySelectorAll('.cart-quantity-minus');
+            const plusButtons = document.querySelectorAll('.cart-quantity-plus');
+            const quantityInputs = document.querySelectorAll('.cart-quantity-input');
+            const removeButtons = document.querySelectorAll('.cart-remove');
+            
+            minusButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const input = quantityInputs[index];
+                    let value = parseInt(input.value);
+                    if (value > 1) {
+                        input.value = value - 1;
+                        updateCartTotals();
+                    }
+                });
+            });
+            
+            plusButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const input = quantityInputs[index];
+                    let value = parseInt(input.value);
+                    if (value < parseInt(input.max)) {
+                        input.value = value + 1;
+                        updateCartTotals();
+                    }
+                });
+            });
+            
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    updateCartTotals();
+                });
+            });
+            
+            removeButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    row.style.opacity = '0';
+                    setTimeout(() => {
+                        row.remove();
+                        updateCartTotals();
+                        updateCartCount();
+                    }, 300);
+                });
+            });
+            
+            function updateCartTotals() {
+                // This would be implemented with real calculation in a production environment
+                // For demo purposes, we'll just show alerts
+                console.log('Cart totals updated');
+            }
+            
+            function updateCartCount() {
+                const cartCount = document.querySelector('.cart-count');
+                const remainingItems = document.querySelectorAll('.cart-table tbody tr').length;
+                cartCount.textContent = remainingItems;
+                
+                // Update cart title
+                const cartTitle = document.querySelector('.cart-title');
+                cartTitle.textContent = `Shopping Cart (${remainingItems} items)`;
+                
+                // Show empty cart message if no items left
+                if (remainingItems === 0) {
+                    const cartTable = document.querySelector('.cart-table');
+                    const cartFooter = document.querySelector('.cart-footer');
+                    
+                    cartTable.style.display = 'none';
+                    cartFooter.style.display = 'none';
+                    
+                    const emptyCart = document.createElement('div');
+                    emptyCart.className = 'cart-empty';
+                    emptyCart.innerHTML = `
+                        <div class="cart-empty-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                        <p>You don't have any items in your cart yet. Start adding kitchenware collections to your cart.</p>
+                        <a href="catalog.html" class="btn" style="margin-top: 20px;">Browse Collections</a>
+                    `;
+                    
+                    cartTable.parentNode.insertBefore(emptyCart, cartTable);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

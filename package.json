@@ -1,0 +1,26 @@
+{
+  "name": "kitchenlux-website",
+  "version": "1.0.0",
+  "description": "KitchenLux Premium Kitchenware Rental Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "cd frontend && npm run start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d"
+  },
+  "keywords": [
+    "kitchenware",
+    "rental",
+    "premium",
+    "vacation"
+  ],
+  "author": "KitchenLux Team",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "mongodb": "^6.14.2"
+  }
+}

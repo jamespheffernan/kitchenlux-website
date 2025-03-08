@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italian Cuisine Kit - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .product-details-container {
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .gallery-main-image {
+            width: 100%;
+            height: 450px;
+            display: block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .gallery-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            object-position: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .product-info {
+            padding: 20px 0;
+        }
+        
+        .product-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .product-features {
+            margin-bottom: 30px;
+        }
+        
+        .product-features h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .product-actions button {
+            padding: 15px 30px;
+            font-size: 16px;
+        }
+        
+        .product-tabs {
+            margin-top: 60px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h3 {
+            margin-bottom: 20px;
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .spec-table tr:nth-child(odd) {
+            background-color: rgba(184, 134, 11, 0.05);
+        }
+        
+        .spec-table th, .spec-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .spec-table th {
+            width: 30%;
+            font-weight: 600;
+        }
+        
+        .related-products {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        @media (max-width: 992px) {
+            .product-details-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html" class="active">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > <a href="catalog.html">Collections</a> > Italian Cuisine Kit
+            </div>
+            <h1>Italian Cuisine Kit</h1>
+            <p>Everything you need for authentic Italian cooking during your vacation.</p>
+        </div>
+    </section>
+    
+    <section class="product-details" style="background-color: white; padding: 80px 0;">
+        <div class="container">
+            <div class="product-details-container">
+                <div class="product-gallery">
+                    <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit" class="gallery-main-image">
+                    <div class="gallery-thumbnails">
+                        <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit - Main" class="gallery-thumbnail active">
+                        <img src="images/cookware.jpg" alt="Italian Cuisine Kit - Cookware" class="gallery-thumbnail">
+                        <img src="images/knife-set.jpg" alt="Italian Cuisine Kit - Knives" class="gallery-thumbnail">
+                        <img src="images/storage-case.jpg" alt="Italian Cuisine Kit - Storage Case" class="gallery-thumbnail">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-title">Italian Cuisine Kit</h2>
+                    <div class="product-price">$75.00/week</div>
+                    <div class="product-description">
+                        <p>Our Italian Cuisine Kit brings the authentic taste of Italy to your vacation kitchen with specialized tools and equipment for crafting perfect pasta, pizza, risotto, and more. This comprehensive collection features everything you need to create memorable Italian meals during your stay.</p>
+                        <p>Each item is sanitized, inspected, and delivered in a secure case to your vacation rental before your arrival. Simply leave everything in the case for pickup after your departure — no cleaning required.</p>
+                    </div>
+                    <div class="product-features">
+                        <h3>What's Included:</h3>
+                        <ul class="feature-list">
+                            <li>Pasta machine with multiple cutting attachments</li>
+                            <li>Pizza stone</li>
+                            <li>Pizza cutter</li>
+                            <li>Italian-style rolling pin</li>
+                            <li>Espresso maker (stovetop)</li>
+                            <li>Risotto pot</li>
+                            <li>Large pasta pot</li>
+                            <li>Garlic press</li>
+                            <li>Cheese grater with multiple settings</li>
+                            <li>Olive oil dispenser</li>
+                            <li>Italian herbs and spice collection (10 essential spices)</li>
+                            <li>Secure storage case</li>
+                        </ul>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-large add-to-cart">Add to Cart</button>
+                        <a href="book-now.html?product=Italian%20Cuisine%20Kit" class="btn btn-large btn-outline">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">Details</button>
+                    <button class="tab-btn" data-tab="specifications">Specifications</button>
+                    <button class="tab-btn" data-tab="reviews">Reviews</button>
+                </div>
+                <div class="tab-content active" id="description">
+                    <h3>About This Kit</h3>
+                    <p>Our Italian Cuisine Kit is designed for food enthusiasts who want to create authentic Italian meals during their vacation. Each item has been carefully selected based on input from professional Italian chefs to ensure you have the right tools for traditional techniques.</p>
+                    <p>The pasta machine allows you to create fresh pasta from scratch, while the pizza stone delivers restaurant-quality crust. The risotto pot is designed specifically for the slow, careful cooking process that perfect risotto requires. The included Italian herb and spice collection ensures your dishes have authentic flavors without having to purchase full-sized spices for a short stay.</p>
+                    <p>Everything arrives in a secure, custom-designed case that keeps all items organized and protected. When your stay is over, simply place everything back in the case — there's no need to clean or wash anything. We professionally clean and sanitize all items between rentals.</p>
+                    <h3>Perfect For:</h3>
+                    <ul>
+                        <li>Italian food enthusiasts on vacation</li>
+                        <li>Family cooking experiences</li>
+                        <li>Creating special pasta or pizza nights during your stay</li>
+                        <li>Learning new cooking skills while on vacation</li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="specifications">
+                    <h3>Specifications</h3>
+                    <table class="spec-table">
+                        <tr>
+                            <th>Pasta Machine</th>
+                            <td>Stainless steel with 7 thickness settings and attachments for fettuccine and spaghetti</td>
+                        </tr>
+                        <tr>
+                            <th>Pizza Stone</th>
+                            <td>14-inch cordierite stone, heat resistant up to 800°F</td>
+                        </tr>
+                        <tr>
+                            <th>Pizza Cutter</th>
+                            <td>Professional 4-inch wheel cutter with ergonomic handle</td>
+                        </tr>
+                        <tr>
+                            <th>Rolling Pin</th>
+                            <td>20-inch solid hardwood Italian-style (without handles)</td>
+                        </tr>
+                        <tr>
+                            <th>Espresso Maker</th>
+                            <td>6-cup stovetop Moka pot</td>
+                        </tr>
+                        <tr>
+                            <th>Risotto Pot</th>
+                            <td>3.5-quart heavy-bottomed pot with tight-fitting lid</td>
+                        </tr>
+                        <tr>
+                            <th>Pasta Pot</th>
+                            <td>8-quart stainless steel with pasta insert</td>
+                        </tr>
+                        <tr>
+                            <th>Cheese Grater</th>
+                            <td>Box grater with 4 different grating surfaces</td>
+                        </tr>
+                        <tr>
+                            <th>Spice Collection</th>
+                            <td>10 essential Italian herbs and spices in labeled glass jars</td>
+                        </tr>
+                        <tr>
+                            <th>Storage Case</th>
+                            <td>Custom-designed hard case with foam inserts, 24" x 16" x 12"</td>
+                        </tr>
+                        <tr>
+                            <th>Total Items</th>
+                            <td>Approximately 20 pieces</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>Approximately 22 lbs</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-content" id="reviews">
+                    <h3>Customer Reviews</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The Italian Cuisine Kit transformed our vacation! We made fresh pasta and pizza from scratch, and it was some of the best we've ever had. The pasta machine was incredibly easy to use, even as beginners."</p>
+                            <p class="testimonial-author">- Tony M., NYC</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"My husband and I had a blast making authentic risotto and pasta during our anniversary trip. The quality of all the items was excellent, and the herb collection added perfect flavors to our dishes."</p>
+                            <p class="testimonial-author">- Lisa G., Boston</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The pizza stone made such a difference in our homemade pizzas! Crispy crust that tasted like a restaurant. Our family pizza night was a huge hit, and we didn't have to skimp on tools like we usually do in rentals."</p>
+                            <p class="testimonial-author">- James L., Chicago</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"Being able to make proper espresso every morning with the stovetop Moka pot was a game-changer. The whole kit was so well thought out, with everything you might need for Italian cooking without any wasted items."</p>
+                            <p class="testimonial-author">- Maria C., Miami</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="related-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>You Might Also Like</h2>
+                <p>Other premium kitchenware collections to enhance your vacation cooking.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/chefs-kit.jpg" alt="Professional Chef's Kit">
+                    </div>
+                    <h3 class="product-title">Professional Chef's Kit</h3>
+                    <p>Our most comprehensive collection with professional-grade tools.</p>
+                    <div class="product-price">$89/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/baking-collection.jpg" alt="Baking Collection">
+                    </div>
+                    <h3 class="product-title">Baking Collection</h3>
+                    <p>Specialized tools for creating delicious baked goods.</p>
+                    <div class="product-price">$65/week</div>
+                    <div class="product-actions">
+                        <a href="baking-collection.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/spice-collection.jpg" alt="Premium Spice Collection">
+                    </div>
+                    <h3 class="product-title">Premium Spice Collection</h3>
+                    <p>24 essential spices in glass jars with labels.</p>
+                    <div class="product-price">$15/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Upgrade Your Vacation Cooking?</h2>
+            <p>Book your premium kitchenware kit today and experience the joy of cooking with professional tools during your next vacation.</p>
+            <a href="book-now.html" class="btn">Book Your Kitchenware Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script>
+        // Additional product details page script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

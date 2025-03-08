@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html" class="active">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > Collections
+            </div>
+            <h1>Our Premium Kitchenware Collections</h1>
+            <p>Explore our curated collections of professional-grade kitchenware for your vacation rental.</p>
+        </div>
+    </section>
+    
+    <section class="features" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Browse Collections</h2>
+                <p>Find the perfect kitchenware set for your culinary needs.</p>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="product-filters">
+                    <button class="btn product-filter active" data-filter="all">All Collections</button>
+                    <button class="btn product-filter" data-filter="essential">Essential</button>
+                    <button class="btn product-filter" data-filter="chef">Chef's</button>
+                    <button class="btn product-filter" data-filter="specialty">Specialty</button>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card product-card essential">
+                    <div class="product-image">
+                        <img src="images/essential-kit.jpg" alt="Essential Kitchen Kit">
+                    </div>
+                    <h3 class="product-title">Essential Kitchen Kit</h3>
+                    <p>The basics you need for everyday cooking during your stay.</p>
+                    <div class="product-price">$49/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card chef">
+                    <div class="product-image">
+                        <img src="images/chefs-kit.jpg" alt="Professional Chef's Kit">
+                    </div>
+                    <h3 class="product-title">Professional Chef's Kit</h3>
+                    <p>Our most comprehensive collection with professional-grade tools.</p>
+                    <div class="product-price">$89/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card specialty">
+                    <div class="product-image">
+                        <img src="images/baking-collection.jpg" alt="Baking Collection">
+                    </div>
+                    <h3 class="product-title">Baking Collection</h3>
+                    <p>Specialized tools for creating delicious baked goods.</p>
+                    <div class="product-price">$65/week</div>
+                    <div class="product-actions">
+                        <a href="baking-collection.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card specialty">
+                    <div class="product-image">
+                        <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit">
+                    </div>
+                    <h3 class="product-title">Italian Cuisine Kit</h3>
+                    <p>Everything you need for authentic Italian cooking.</p>
+                    <div class="product-price">$75/week</div>
+                    <div class="product-actions">
+                        <a href="italian-cuisine.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card specialty">
+                    <div class="product-image">
+                        <img src="images/chefs-kit.jpg" alt="BBQ Collection">
+                    </div>
+                    <h3 class="product-title">BBQ Collection</h3>
+                    <p>Premium outdoor cooking equipment for the ultimate BBQ experience.</p>
+                    <div class="product-price">$89.99/week</div>
+                    <div class="product-actions">
+                        <a href="bbq-collection.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card specialty">
+                    <div class="product-image">
+                        <img src="images/kitchen-hero.jpg" alt="Holiday Cooking Kit">
+                    </div>
+                    <h3 class="product-title">Holiday Cooking Kit</h3>
+                    <p>Everything needed for unforgettable holiday feasts at your vacation rental.</p>
+                    <div class="product-price">$99.99/week</div>
+                    <div class="product-actions">
+                        <a href="holiday-kit.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card specialty">
+                    <div class="product-image">
+                        <img src="images/cookware.jpg" alt="Asian Fusion Kit">
+                    </div>
+                    <h3 class="product-title">Asian Fusion Kit</h3>
+                    <p>Master the art of Asian cuisine with premium tools.</p>
+                    <div class="product-price">$79/week</div>
+                    <div class="product-actions">
+                        <a href="asian-fusion.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card essential">
+                    <div class="product-image">
+                        <img src="images/basic-cookware.jpg" alt="Basic Cookware Set">
+                    </div>
+                    <h3 class="product-title">Basic Cookware Set</h3>
+                    <p>Just the essential pots and pans for simple meal preparation.</p>
+                    <div class="product-price">$39/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card chef">
+                    <div class="product-image">
+                        <img src="images/knife-collection.jpg" alt="Knife Master Collection">
+                    </div>
+                    <h3 class="product-title">Knife Master Collection</h3>
+                    <p>Professional-grade knives for precision cutting and prep work.</p>
+                    <div class="product-price">$55/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Add-on Accessories</h2>
+                <p>Enhance your kitchenware collection with these premium add-ons.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/spice-collection.jpg" alt="Premium Spice Collection">
+                    </div>
+                    <h3 class="product-title">Premium Spice Collection</h3>
+                    <p>24 essential spices in glass jars with labels.</p>
+                    <div class="product-price">$15/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/appliance-bundle.jpg" alt="Electric Appliance Bundle">
+                    </div>
+                    <h3 class="product-title">Electric Appliance Bundle</h3>
+                    <p>Food processor, immersion blender, and electric kettle.</p>
+                    <div class="product-price">$35/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/damage-protection.jpg" alt="Premium Damage Protection">
+                    </div>
+                    <h3 class="product-title">Premium Damage Protection</h3>
+                    <p>Full coverage for any accidental damage during your rental.</p>
+                    <div class="product-price">$10/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer Reviews</h2>
+                <p>See what our customers say about our collections.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The Professional Chef's Kit exceeded my expectations. Every knife was razor-sharp, and the cookware distributed heat perfectly. It was like cooking in a professional kitchen while on vacation."</p>
+                    <p class="testimonial-author">- Marcus J., Chicago</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I rented the Baking Collection for our family vacation, and we had the best time making cookies and pies together. Having all the proper tools made such a difference!"</p>
+                    <p class="testimonial-author">- Elena R., Boston</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The Italian Cuisine Kit had everything we needed to make authentic pasta dishes. The pasta roller alone was worth it! Will definitely rent again on our next trip."</p>
+                    <p class="testimonial-author">- Tony M., NYC</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I loved how everything came in an organized case. The quality of each item was outstanding - these are the same brands I'd use at home if I could afford them!"</p>
+                    <p class="testimonial-author">- Susan K., Denver</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Upgrade Your Vacation Cooking?</h2>
+            <p>Book your premium kitchenware kit today and experience the joy of cooking with professional tools during your next vacation.</p>
+            <a href="book-now.html" class="btn">Book Your Kitchenware Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

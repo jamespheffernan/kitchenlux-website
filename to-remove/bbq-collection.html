@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBQ Collection - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .product-details-container {
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .gallery-main-image {
+            width: 100%;
+            height: 450px;
+            display: block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .gallery-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            object-position: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .product-info {
+            padding: 20px 0;
+        }
+        
+        .product-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .product-features {
+            margin-bottom: 30px;
+        }
+        
+        .product-features h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .product-actions button {
+            padding: 15px 30px;
+            font-size: 16px;
+        }
+        
+        .product-tabs {
+            margin-top: 60px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h3 {
+            margin-bottom: 20px;
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .spec-table tr:nth-child(odd) {
+            background-color: rgba(184, 134, 11, 0.05);
+        }
+        
+        .spec-table th, .spec-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .spec-table th {
+            width: 30%;
+            font-weight: 600;
+        }
+        
+        .related-products {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        @media (max-width: 992px) {
+            .product-details-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html" class="active">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > <a href="catalog.html">Collections</a> > BBQ Collection
+            </div>
+            <h1>BBQ Collection</h1>
+            <p>Premium outdoor cooking equipment for the ultimate BBQ experience.</p>
+        </div>
+    </section>
+    
+    <section class="product-details" style="background-color: white; padding: 80px 0;">
+        <div class="container">
+            <div class="product-details-container">
+                <div class="product-gallery">
+                    <img src="images/chefs-kit.jpg" alt="BBQ Collection" class="gallery-main-image">
+                    <div class="gallery-thumbnails">
+                        <img src="images/chefs-kit.jpg" alt="BBQ Collection - Main" class="gallery-thumbnail active">
+                        <img src="images/basic-cookware.jpg" alt="BBQ Collection - Tools" class="gallery-thumbnail">
+                        <img src="images/knife-set.jpg" alt="BBQ Collection - Spices" class="gallery-thumbnail">
+                        <img src="images/knife-collection.jpg" alt="BBQ Collection - Storage Case" class="gallery-thumbnail">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-title">BBQ Collection</h2>
+                    <div class="product-price">$89.99/week</div>
+                    <div class="product-description">
+                        <p>Premium outdoor cooking equipment for the ultimate BBQ experience. Our BBQ Collection includes everything you need for grilling and smoking at your vacation rental.</p>
+                        <p>Each item is sanitized, inspected, and delivered to your vacation rental before your arrival. Simply leave everything for pickup after your departure — no cleaning required.</p>
+                    </div>
+                    <div class="product-features">
+                        <h3>What's Included:</h3>
+                        <ul class="feature-list">
+                            <li>Professional-grade portable grill</li>
+                            <li>Cast iron BBQ grates</li>
+                            <li>Digital meat thermometer</li>
+                            <li>Grill tool set (tongs, spatula, fork)</li>
+                            <li>Cedar grilling planks</li>
+                            <li>BBQ spice rub collection</li>
+                            <li>Heavy-duty heat-resistant gloves</li>
+                            <li>Basting brushes and mops</li>
+                            <li>Marinade injector kit</li>
+                            <li>Stainless steel skewers set</li>
+                            <li>Grill cleaning brush</li>
+                        </ul>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-large add-to-cart">Add to Cart</button>
+                        <a href="book-now.html?product=BBQ%20Collection" class="btn btn-large btn-outline">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">Details</button>
+                    <button class="tab-btn" data-tab="specifications">Specifications</button>
+                    <button class="tab-btn" data-tab="reviews">Reviews</button>
+                </div>
+                <div class="tab-content active" id="description">
+                    <h3>About This Kit</h3>
+                    <p>Our BBQ Collection is designed for outdoor cooking enthusiasts who want professional-quality equipment without the hassle of purchasing or transporting it to their vacation rental. Each item in this collection has been carefully selected for its quality, performance, and durability.</p>
+                    <p>The professional-grade portable grill provides consistent heat for perfect results, while the included tools and accessories ensure you have everything needed for a complete outdoor cooking experience. The BBQ spice rub collection adds authentic flavors to your grilled creations.</p>
+                    <p>Everything arrives ready to use, professionally cleaned and sanitized. When your stay is over, simply leave everything for pickup — no cleaning required. We professionally clean and sanitize all items between rentals.</p>
+                    
+                    <h3>Perfect For:</h3>
+                    <ul>
+                        <li>Summer getaways and beach houses</li>
+                        <li>Outdoor entertaining and family gatherings</li>
+                        <li>Tailgating and sporting events</li>
+                        <li>Camping trips with premium meals</li>
+                        <li>Grill enthusiasts who want quality without commitment</li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="specifications">
+                    <h3>Specifications</h3>
+                    <table class="spec-table">
+                        <tr>
+                            <th>Portable Grill</th>
+                            <td>Premium stainless steel construction, 255 sq. in. cooking surface, foldable design</td>
+                        </tr>
+                        <tr>
+                            <th>BBQ Grates</th>
+                            <td>Cast iron construction with pre-seasoned finish for optimal heat retention</td>
+                        </tr>
+                        <tr>
+                            <th>Digital Thermometer</th>
+                            <td>Instant-read digital display with temperature range of 32°F to 572°F</td>
+                        </tr>
+                        <tr>
+                            <th>Grill Tool Set</th>
+                            <td>Commercial-grade stainless steel with ergonomic heat-resistant handles</td>
+                        </tr>
+                        <tr>
+                            <th>Cedar Planks</th>
+                            <td>Set of 6 premium cedar planks (7" x 16") for fish and other delicate foods</td>
+                        </tr>
+                        <tr>
+                            <th>Spice Rub Collection</th>
+                            <td>6 signature BBQ rub blends in resealable containers</td>
+                        </tr>
+                        <tr>
+                            <th>Heat-Resistant Gloves</th>
+                            <td>Aramid fiber construction with silicone grip, heat resistant to 932°F</td>
+                        </tr>
+                        <tr>
+                            <th>Basting Tools</th>
+                            <td>Silicone brushes and cotton fiber mops with extended handles</td>
+                        </tr>
+                        <tr>
+                            <th>Marinade Injector</th>
+                            <td>Commercial-grade stainless steel with multiple needle attachments</td>
+                        </tr>
+                        <tr>
+                            <th>Skewers Set</th>
+                            <td>Set of 12 flat stainless steel skewers (14" length) preventing food rotation</td>
+                        </tr>
+                        <tr>
+                            <th>Cleaning Brush</th>
+                            <td>Durable brass bristles with scraper edge and 18" handle</td>
+                        </tr>
+                        <tr>
+                            <th>Total Items</th>
+                            <td>Approximately 25 pieces</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>Approximately 22 lbs</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-content" id="reviews">
+                    <h3>Customer Reviews</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The BBQ Collection made our beach vacation so much better! We had amazing cookouts every night without having to buy or bring any equipment. The portable grill was surprisingly powerful and the tools were professional quality."</p>
+                            <p class="testimonial-author">- Michael J., Denver</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"We rented the BBQ Collection for our family reunion at a lake house. The digital thermometer helped us cook perfect steaks for everyone, and the spice rubs were a fantastic addition. Worth every penny!"</p>
+                            <p class="testimonial-author">- Sarah P., Portland</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"As someone who takes grilling seriously, I was impressed with the quality of this collection. The cast iron grates provided perfect sear marks, and the heat-resistant gloves were a lifesaver. Highly recommend for any outdoor cooking enthusiast."</p>
+                            <p class="testimonial-author">- Robert L., Houston</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The convenience of having professional BBQ equipment delivered to our vacation rental was incredible. The cedar planks added amazing flavor to our salmon, and the cleanup was non-existent - we just left everything for pickup!"</p>
+                            <p class="testimonial-author">- Amanda K., San Diego</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="related-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>You Might Also Like</h2>
+                <p>Other premium kitchenware collections to enhance your vacation cooking.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit">
+                    </div>
+                    <h3 class="product-title">Italian Cuisine Kit</h3>
+                    <p>Everything you need for authentic Italian cooking.</p>
+                    <div class="product-price">$75/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/chefs-kit.jpg" alt="Chef's Kit">
+                    </div>
+                    <h3 class="product-title">Chef's Kit</h3>
+                    <p>Professional-grade kitchenware for culinary enthusiasts.</p>
+                    <div class="product-price">$89/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/spice-collection.jpg" alt="Spice Collection">
+                    </div>
+                    <h3 class="product-title">Spice Collection</h3>
+                    <p>Essential spices in glass jars with labels.</p>
+                    <div class="product-price">$15/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Upgrade Your Outdoor Cooking?</h2>
+            <p>Book your premium BBQ collection today and experience professional grilling during your next vacation.</p>
+            <a href="book-now.html" class="btn">Book Your Kitchenware Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script>
+        // Additional product details page script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

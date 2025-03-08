@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .success-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .order-details {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .delivery-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .delivery-timeline::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .timeline-point {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .timeline-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+        
+        .timeline-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .checkout-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > <a href="book-now.html">Book Now</a> > Confirmation
+            </div>
+            <h1>Booking Confirmation</h1>
+            <p>Your premium kitchenware will be waiting for you at your vacation rental.</p>
+        </div>
+    </section>
+    
+    <section class="booking-section" style="background-color: white;">
+        <div class="container">
+            <div class="confirmation-box">
+                <div class="success-icon">✓</div>
+                <h2>Thank You for Your Booking!</h2>
+                <p>Your order has been successfully placed. A confirmation email has been sent to <strong>john.smith@example.com</strong>.</p>
+                
+                <div class="order-details">
+                    <h3 style="margin-bottom: 20px;">Order Summary</h3>
+                    <div class="order-detail-row">
+                        <div>Order Number</div>
+                        <div><strong>KL-10045872</strong></div>
+                    </div>
+                    <div class="order-detail-row">
+                        <div>Selected Collection</div>
+                        <div><strong>Professional Chef's Kit</strong></div>
+                    </div>
+                    <div class="order-detail-row">
+                        <div>Add-ons</div>
+                        <div><strong>Baking Essentials, Premium Spice Collection</strong></div>
+                    </div>
+                    <div class="order-detail-row">
+                        <div>Rental Period</div>
+                        <div><strong>June 15, 2025 - June 22, 2025</strong></div>
+                    </div>
+                    <div class="order-detail-row">
+                        <div>Delivery Address</div>
+                        <div><strong>123 Oceanfront Drive, Miami, FL 33139</strong></div>
+                    </div>
+                    <div class="order-detail-row">
+                        <div>Total Amount</div>
+                        <div><strong>$129.00</strong></div>
+                    </div>
+                </div>
+                
+                <h3>Your Delivery Timeline</h3>
+                
+                <div class="delivery-timeline">
+                    <div class="timeline-point">
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-label">Order Placed<br>Today</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-label">Order Processing<br>1-2 days</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-label">Kit Preparation<br>June 14</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-label">Delivery<br>June 15</div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-icon"></div>
+                        <div class="timeline-label">Pickup<br>June 22</div>
+                    </div>
+                </div>
+                
+                <div style="background-color: rgba(184, 134, 11, 0.1); padding: 20px; border-radius: 5px;">
+                    <h3 style="margin-bottom: 10px;">What Happens Next?</h3>
+                    <p>1. You'll receive a detailed confirmation email with your order information.</p>
+                    <p>2. We'll send you delivery updates as your rental date approaches.</p>
+                    <p>3. Your kitchenware will be delivered to your rental before your arrival on June 15.</p>
+                    <p>4. Enjoy cooking with premium kitchenware during your stay!</p>
+                    <p>5. Leave everything in the case for pickup after your departure on June 22.</p>
+                </div>
+                
+                <div class="checkout-actions">
+                    <a href="index.html" class="btn btn-outline">Return to Home</a>
+                    <a href="#" class="btn">Manage My Booking</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Enhance Your Culinary Experience</h2>
+                <p>Explore our resources to make the most of your premium kitchenware rental.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Download Our App</h3>
+                    <p>Access your booking details, view tutorials, and manage your account from our mobile app.</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px;">Get the App</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Recipe Collection</h3>
+                    <p>Explore curated recipes that make the most of the tools in your kitchenware collection.</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px;">View Recipes</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📺</div>
+                    <h3>Video Tutorials</h3>
+                    <p>Watch demonstrations of professional techniques using the tools in your kit.</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px;">Watch Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Share Your Experience</h2>
+            <p>Tag us in your culinary creations on social media using #KitchenLuxCooking for a chance to be featured and win a free week of rental.</p>
+            <div class="social-links" style="justify-content: center; margin-top: 30px;">
+                <a href="#" class="social-link" style="background-color: white; color: var(--secondary);"><span>📘</span></a>
+                <a href="#" class="social-link" style="background-color: white; color: var(--secondary);"><span>📱</span></a>
+                <a href="#" class="social-link" style="background-color: white; color: var(--secondary);"><span>📸</span></a>
+                <a href="#" class="social-link" style="background-color: white; color: var(--secondary);"><span>📌</span></a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

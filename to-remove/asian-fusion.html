@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asian Fusion Kit - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .product-details-container {
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .gallery-main-image {
+            width: 100%;
+            height: 450px;
+            display: block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(146, 109, 38, 0.1);
+            object-fit: cover;
+            object-position: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .gallery-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            object-position: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+        }
+        
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .product-info {
+            padding: 20px 0;
+        }
+        
+        .product-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .product-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary), var(--primary-dark));
+            border-radius: 3px;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 25px;
+        }
+        
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .product-features {
+            margin-bottom: 30px;
+            background-color: rgba(146, 109, 38, 0.03);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--primary-light);
+        }
+        
+        .product-features h3 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: var(--primary-dark);
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .product-actions {
+            margin-top: 35px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .product-actions button,
+        .product-actions a {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+        
+        .product-tabs {
+            margin-top: 70px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 16px 30px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            color: #555;
+        }
+        
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content h3 {
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .spec-table tr:nth-child(odd) {
+            background-color: rgba(146, 109, 38, 0.05);
+        }
+        
+        .spec-table th, .spec-table td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .spec-table th {
+            width: 30%;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .related-products {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        @media (max-width: 992px) {
+            .product-details-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html" class="active">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > <a href="catalog.html">Collections</a> > Asian Fusion Kit
+            </div>
+            <h1>Asian Fusion Kit</h1>
+            <p>Master the art of Asian cuisine with our specialized kitchenware collection.</p>
+        </div>
+    </section>
+    
+    <section class="product-details" style="background-color: white; padding: 100px 0;">
+        <div class="container">
+            <div class="product-details-container">
+                <div class="product-gallery">
+                    <img src="images/cookware.jpg" alt="Asian Fusion Kit" class="gallery-main-image">
+                    <div class="gallery-thumbnails">
+                        <img src="images/cookware.jpg" alt="Asian Fusion Kit - Main" class="gallery-thumbnail active">
+                        <img src="images/knife-set.jpg" alt="Asian Fusion Kit - Knives" class="gallery-thumbnail">
+                        <img src="images/utensils.jpg" alt="Asian Fusion Kit - Tools" class="gallery-thumbnail">
+                        <img src="images/storage-case.jpg" alt="Asian Fusion Kit - Storage Case" class="gallery-thumbnail">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-title">Asian Fusion Kit</h2>
+                    <div class="product-price">$79.00/week</div>
+                    <div class="product-description">
+                        <p>Discover the art of Asian cooking with our specialized Asian Fusion Kit, featuring premium tools and equipment designed for creating authentic dishes from across Asia. From stir-frying and steaming to precision knife work, this comprehensive collection has everything you need to enjoy Asian cuisine during your vacation.</p>
+                        <p>Each item is thoroughly sanitized, inspected, and delivered in a secure case to your vacation rental before your arrival. Simply leave everything in the case for pickup after your departure — no cleaning required.</p>
+                    </div>
+                    <div class="product-features">
+                        <h3>What's Included:</h3>
+                        <ul class="feature-list">
+                            <li>Carbon steel wok with lid</li>
+                            <li>Bamboo steamer set</li>
+                            <li>Asian-style chef knife (santoku)</li>
+                            <li>Chinese cleaver</li>
+                            <li>Ceramic rice cooker</li>
+                            <li>Chopsticks set (6 pairs)</li>
+                            <li>Chopstick rests</li>
+                            <li>Bamboo chopstick holder</li>
+                            <li>Spider strainer</li>
+                            <li>Rice paddle</li>
+                            <li>Noodle bowls (4)</li>
+                            <li>Essential Asian spice collection (10 spices)</li>
+                            <li>Secure storage case</li>
+                        </ul>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-large add-to-cart">Add to Cart</button>
+                        <a href="book-now.html?product=Asian%20Fusion%20Kit" class="btn btn-large btn-outline">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">Details</button>
+                    <button class="tab-btn" data-tab="specifications">Specifications</button>
+                    <button class="tab-btn" data-tab="reviews">Reviews</button>
+                </div>
+                <div class="tab-content active" id="description">
+                    <h3>About This Kit</h3>
+                    <p>Our Asian Fusion Kit is designed for food enthusiasts who want to explore the diverse and flavorful cuisines of Asia during their vacation. This carefully curated collection features authentic tools used in Chinese, Japanese, Thai, and Korean cooking, allowing you to create everything from stir-fries and dumplings to sushi and Korean BBQ.</p>
+                    <p>The carbon steel wok is the centerpiece of the collection, perfect for high-heat cooking techniques essential to Asian cuisine. The bamboo steamer allows for healthy preparation of dumplings, vegetables, and fish, while the specialized knives make precision cutting and chopping effortless. The ceramic rice cooker delivers perfect rice every time with minimal effort.</p>
+                    <p>Everything arrives in a secure, custom-designed case that keeps all items organized and protected. When your stay is over, simply place everything back in the case — there's no need to clean or wash anything. We professionally clean and sanitize all items between rentals.</p>
+                    <h3>Perfect For:</h3>
+                    <ul>
+                        <li>Asian cuisine enthusiasts on vacation</li>
+                        <li>Creating authentic dumpling, stir-fry, or sushi nights</li>
+                        <li>Family cooking experiences with new flavors</li>
+                        <li>Learning new Asian cooking techniques while on vacation</li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="specifications">
+                    <h3>Specifications</h3>
+                    <table class="spec-table">
+                        <tr>
+                            <th>Carbon Steel Wok</th>
+                            <td>14-inch diameter with flat bottom, wooden handle, and matching lid</td>
+                        </tr>
+                        <tr>
+                            <th>Bamboo Steamer</th>
+                            <td>10-inch diameter, 2-tier with lid</td>
+                        </tr>
+                        <tr>
+                            <th>Santoku Knife</th>
+                            <td>7-inch high-carbon stainless steel with pakkawood handle</td>
+                        </tr>
+                        <tr>
+                            <th>Chinese Cleaver</th>
+                            <td>8-inch traditional rectangular blade</td>
+                        </tr>
+                        <tr>
+                            <th>Rice Cooker</th>
+                            <td>2.5-cup ceramic Kamado-style pot with lid</td>
+                        </tr>
+                        <tr>
+                            <th>Chopsticks</th>
+                            <td>6 pairs of reusable bamboo chopsticks with matching rests</td>
+                        </tr>
+                        <tr>
+                            <th>Noodle Bowls</th>
+                            <td>Set of 4 ceramic bowls, 6-inch diameter</td>
+                        </tr>
+                        <tr>
+                            <th>Spider Strainer</th>
+                            <td>6-inch diameter stainless steel mesh with bamboo handle</td>
+                        </tr>
+                        <tr>
+                            <th>Spice Collection</th>
+                            <td>10 essential Asian spices in labeled glass jars</td>
+                        </tr>
+                        <tr>
+                            <th>Storage Case</th>
+                            <td>Custom-designed hard case with foam inserts, 24" x 18" x 10"</td>
+                        </tr>
+                        <tr>
+                            <th>Total Items</th>
+                            <td>Approximately 25 pieces</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>Approximately 18 lbs</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-content" id="reviews">
+                    <h3>Customer Reviews</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The Asian Fusion Kit was perfect for our family vacation. We made dumplings one night and a stir-fry the next. The wok was amazing and everything heated so evenly. The kids loved using the bamboo steamer!"</p>
+                            <p class="testimonial-author">- Michelle L., Seattle</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"As someone who loves cooking Asian food, I was thrilled to find this kit. The quality of the knives was impressive, and the rice cooker made perfect rice. Having the right tools made vacation cooking so much more enjoyable."</p>
+                            <p class="testimonial-author">- David K., San Francisco</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"We hosted a sushi night at our rental using this kit, and it was such a hit! Having proper knives for slicing fish and all the necessary accessories made it feel like a real chef experience. Highly recommend!"</p>
+                            <p class="testimonial-author">- Jessica T., Austin</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The spice collection that came with the kit was so thoughtfully curated — it saved us from having to buy full-sized spices for just a week's stay. Every tool was high quality and made our Asian cooking adventures a success."</p>
+                            <p class="testimonial-author">- Robert W., Chicago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="related-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>You Might Also Like</h2>
+                <p>Other premium kitchenware collections to enhance your vacation cooking.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/chefs-kit.jpg" alt="Professional Chef's Kit">
+                    </div>
+                    <h3 class="product-title">Professional Chef's Kit</h3>
+                    <p>Our most comprehensive collection with professional-grade tools.</p>
+                    <div class="product-price">$89/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit">
+                    </div>
+                    <h3 class="product-title">Italian Cuisine Kit</h3>
+                    <p>Everything you need for authentic Italian cooking.</p>
+                    <div class="product-price">$75/week</div>
+                    <div class="product-actions">
+                        <a href="italian-cuisine.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/spice-collection.jpg" alt="Premium Spice Collection">
+                    </div>
+                    <h3 class="product-title">Premium Spice Collection</h3>
+                    <p>24 essential spices in glass jars with labels.</p>
+                    <div class="product-price">$15/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Elevate Your Vacation Culinary Experience?</h2>
+            <p>Book your premium kitchenware kit today and transform every meal into a gourmet experience during your next getaway.</p>
+            <a href="book-now.html" class="btn">Book Your Kitchenware Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script>
+        // Additional product details page script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

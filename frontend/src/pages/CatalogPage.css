@@ -1,0 +1,155 @@
+.catalog-page {
+  padding: 120px 0 80px;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.page-title {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.page-subtitle {
+  font-size: 18px;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.catalog-filters {
+  margin-bottom: 40px;
+}
+
+.search-bar {
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.search-bar form {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(146, 109, 38, 0.2);
+}
+
+.search-bar button {
+  min-width: 100px;
+}
+
+.category-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.category-filter {
+  padding: 10px 20px;
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.category-filter:hover {
+  background-color: rgba(146, 109, 38, 0.1);
+}
+
+.category-filter.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.search-results-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: rgba(146, 109, 38, 0.1);
+  border-radius: var(--border-radius);
+  margin-bottom: 30px;
+}
+
+.search-results-info p {
+  margin: 0;
+}
+
+.clear-search {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.clear-search:hover {
+  color: var(--primary-dark);
+}
+
+.catalog-info {
+  margin-top: 80px;
+  padding: 40px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.catalog-info h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.catalog-info h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary);
+}
+
+.catalog-info p {
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .category-filters {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .category-filter {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .catalog-info {
+    padding: 30px 20px;
+  }
+}

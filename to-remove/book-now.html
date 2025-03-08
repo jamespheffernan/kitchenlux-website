@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitchenLux - Book Your Premium Kitchenware</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn active">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > Book Now
+            </div>
+            <h1>Book Your Premium Kitchenware</h1>
+            <p>Complete your booking to enjoy chef-quality tools during your Airbnb stay.</p>
+            
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Kit Selection</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Delivery Details</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="booking-section">
+        <div class="container">
+            <div class="booking-container">
+                <form class="booking-form" action="process_form.php" method="POST">
+                    <div class="form-section">
+                        <h2>Selected Kit</h2>
+                        <div class="form-row">
+                            <div class="add-on-item selected">
+                                <div class="add-on-details">
+                                    <div class="add-on-title">Professional Chef's Kit</div>
+                                    <div class="add-on-description">Our most comprehensive collection featuring professional-grade knives and premium cookware.</div>
+                                </div>
+                                <div class="add-on-price">$89/week</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h2>Enhance Your Kit</h2>
+                        <div class="form-row">
+                            <div class="add-on-item">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="add-on-1">
+                                </div>
+                                <div class="add-on-details">
+                                    <div class="add-on-title">Baking Essentials</div>
+                                    <div class="add-on-description">Add premium baking tools including measuring cups, mixing bowls, and specialty utensils.</div>
+                                </div>
+                                <div class="add-on-price">+$25/week</div>
+                            </div>
+                            
+                            <div class="add-on-item">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="add-on-2">
+                                </div>
+                                <div class="add-on-details">
+                                    <div class="add-on-title">Electric Appliance Bundle</div>
+                                    <div class="add-on-description">Add a high-quality food processor, immersion blender, and electric kettle.</div>
+                                </div>
+                                <div class="add-on-price">+$35/week</div>
+                            </div>
+                            
+                            <div class="add-on-item">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="add-on-3">
+                                </div>
+                                <div class="add-on-details">
+                                    <div class="add-on-title">Premium Spice Collection</div>
+                                    <div class="add-on-description">Enhance your kit with 24 premium spices in glass jars with labels.</div>
+                                </div>
+                                <div class="add-on-price">+$15/week</div>
+                            </div>
+                            
+                            <div class="add-on-item">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="add-on-4">
+                                </div>
+                                <div class="add-on-details">
+                                    <div class="add-on-title">Premium Damage Protection</div>
+                                    <div class="add-on-description">Full coverage for any accidental damage during your rental period.</div>
+                                </div>
+                                <div class="add-on-price">+$10/week</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h2>Delivery Details</h2>
+                        <div class="form-row columns-2">
+                            <div class="form-group">
+                                <label for="arrival-date">Arrival Date</label>
+                                <input type="date" id="arrival-date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="departure-date">Departure Date</label>
+                                <input type="date" id="departure-date" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="address">Airbnb Address</label>
+                                <input type="text" id="address" class="form-control" placeholder="Street address">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row columns-2">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="zip">ZIP Code</label>
+                                <input type="text" id="zip" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="delivery-notes">Delivery Instructions (Optional)</label>
+                                <textarea id="delivery-notes" class="form-control" placeholder="Special delivery instructions, access codes, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h2>Contact Information</h2>
+                        <div class="form-row columns-2">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row columns-2">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h2>Payment Information</h2>
+                        <div class="form-row">
+                            <div class="payment-methods">
+                                <div class="payment-method active">
+                                    <div class="payment-method-icon">💳</div>
+                                    <div class="payment-method-label">Credit Card</div>
+                                </div>
+                                <div class="payment-method">
+                                    <div class="payment-method-icon">P</div>
+                                    <div class="payment-method-label">PayPal</div>
+                                </div>
+                                <div class="payment-method">
+                                    <div class="payment-method-icon">A</div>
+                                    <div class="payment-method-label">Apple Pay</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row columns-2">
+                            <div class="form-group">
+                                <label for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="card-number">Card Number</label>
+                                <input type="text" id="card-number" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row columns-2">
+                            <div class="form-group">
+                                <label for="expiry">Expiration Date</label>
+                                <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" class="form-control" placeholder="XXX">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" name="form_type" value="booking">
+                    <input type="hidden" name="selected_kit" value="Professional Chef's Kit">
+                    
+                    <div class="form-actions">
+                        <a href="catalog.html" class="btn btn-outline">Back to Catalog</a>
+                        <button type="submit" class="btn btn-large">Complete Booking</button>
+                    </div>
+                </form>
+                
+                <div class="booking-summary">
+                    <h3 class="summary-title">Booking Summary</h3>
+                    
+                    <div class="booking-dates">
+                        <div class="date-item">
+                            <div class="date-label">Delivery</div>
+                            <div class="date-value">Select Date</div>
+                        </div>
+                        <div class="date-item">
+                            <div class="date-label">Pickup</div>
+                            <div class="date-value">Select Date</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Professional Chef's Kit</div>
+                        <div class="summary-value">$89.00</div>
+                    </div>
+                    
+                    <div class="summary-item summary-subtotal">
+                        <div class="summary-label">Subtotal</div>
+                        <div class="summary-value">$89.00</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Delivery Fee</div>
+                        <div class="summary-value">$0.00</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Tax</div>
+                        <div class="summary-value">$7.12</div>
+                    </div>
+                    
+                    <div class="summary-item summary-total">
+                        <div class="summary-label">Total</div>
+                        <div class="summary-value">$96.12</div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <button type="submit" class="btn btn-large" style="width: 100%;">Complete Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

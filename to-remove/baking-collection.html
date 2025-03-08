@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baking Collection - KitchenLux Premium Kitchenware Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .product-details-container {
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .gallery-main-image {
+            width: 100%;
+            height: 450px;
+            display: block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .gallery-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            object-position: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .product-info {
+            padding: 20px 0;
+        }
+        
+        .product-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .product-features {
+            margin-bottom: 30px;
+        }
+        
+        .product-features h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .product-actions button {
+            padding: 15px 30px;
+            font-size: 16px;
+        }
+        
+        .product-tabs {
+            margin-top: 60px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h3 {
+            margin-bottom: 20px;
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .spec-table tr:nth-child(odd) {
+            background-color: rgba(184, 134, 11, 0.05);
+        }
+        
+        .spec-table th, .spec-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .spec-table th {
+            width: 30%;
+            font-weight: 600;
+        }
+        
+        .related-products {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        @media (max-width: 992px) {
+            .product-details-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kitchen<span>Lux</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="catalog.html" class="active">Collections</a>
+                    <a href="about.html">About</a>
+                    <a href="how-it-works.html">How It Works</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <div class="cart-icon">
+                        <span>🛍️</span>
+                        <div class="cart-count">0</div>
+                    </div>
+                    <a href="book-now.html" class="btn">Book Now</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> > <a href="catalog.html">Collections</a> > Baking Collection
+            </div>
+            <h1>Baking Collection</h1>
+            <p>Specialized tools for creating delicious baked goods during your vacation.</p>
+        </div>
+    </section>
+    
+    <section class="product-details" style="background-color: white; padding: 80px 0;">
+        <div class="container">
+            <div class="product-details-container">
+                <div class="product-gallery">
+                    <img src="images/baking-collection.jpg" alt="Baking Collection" class="gallery-main-image">
+                    <div class="gallery-thumbnails">
+                        <img src="images/baking-collection.jpg" alt="Baking Collection - Main" class="gallery-thumbnail active">
+                        <img src="images/cookware.jpg" alt="Baking Collection - Cookware" class="gallery-thumbnail">
+                        <img src="images/utensils.jpg" alt="Baking Collection - Tools" class="gallery-thumbnail">
+                        <img src="images/storage-case.jpg" alt="Baking Collection - Storage Case" class="gallery-thumbnail">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-title">Baking Collection</h2>
+                    <div class="product-price">$65.00/week</div>
+                    <div class="product-description">
+                        <p>Our specialized Baking Collection is perfect for vacation rentals, giving you everything you need to create delicious baked goods during your stay. From measuring tools to specialized bakeware, this comprehensive set ensures your baking adventures won't be limited by missing equipment.</p>
+                        <p>Each item is sanitized, inspected, and delivered in a secure case to your vacation rental before your arrival. Simply leave everything in the case for pickup after your departure — no cleaning required.</p>
+                    </div>
+                    <div class="product-features">
+                        <h3>What's Included:</h3>
+                        <ul class="feature-list">
+                            <li>Professional stand mixer with attachments</li>
+                            <li>Set of premium non-stick baking sheets (2)</li>
+                            <li>Cake pans (round and square)</li>
+                            <li>Loaf pan</li>
+                            <li>Muffin tin</li>
+                            <li>Measuring cups and spoons (dry and liquid)</li>
+                            <li>Mixing bowls (3 sizes)</li>
+                            <li>Pastry blender and cutter</li>
+                            <li>Rolling pin</li>
+                            <li>Silicone baking mat</li>
+                            <li>Essential baking spices kit (8 spices)</li>
+                            <li>Secure storage case</li>
+                        </ul>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-large add-to-cart">Add to Cart</button>
+                        <a href="book-now.html?product=Baking%20Collection" class="btn btn-large btn-outline">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">Details</button>
+                    <button class="tab-btn" data-tab="specifications">Specifications</button>
+                    <button class="tab-btn" data-tab="reviews">Reviews</button>
+                </div>
+                <div class="tab-content active" id="description">
+                    <h3>About This Kit</h3>
+                    <p>Our Baking Collection is designed for the baking enthusiast who doesn't want to miss out on homemade treats during vacation. Each item in this kit has been carefully selected for quality, performance, and ease of use.</p>
+                    <p>The professional stand mixer makes quick work of dough and batters, while the premium non-stick bakeware ensures even baking and easy release. With a complete set of measuring tools and essential mixing equipment, you'll have everything you need to create cookies, cakes, breads, and more during your stay.</p>
+                    <p>Everything arrives in a secure, custom-designed case that keeps all items organized and protected. When your stay is over, simply place everything back in the case — there's no need to clean or wash anything. We professionally clean and sanitize all items between rentals.</p>
+                    <h3>Perfect For:</h3>
+                    <ul>
+                        <li>Family vacations with baking enthusiasts</li>
+                        <li>Holiday stays when you want to bake special treats</li>
+                        <li>Extended vacation stays</li>
+                        <li>Creating memorable baking experiences with children</li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="specifications">
+                    <h3>Specifications</h3>
+                    <table class="spec-table">
+                        <tr>
+                            <th>Stand Mixer</th>
+                            <td>5-quart capacity with 3 attachments (paddle, whisk, dough hook)</td>
+                        </tr>
+                        <tr>
+                            <th>Baking Sheets</th>
+                            <td>Professional-grade aluminum with non-stick coating, 13" x 18"</td>
+                        </tr>
+                        <tr>
+                            <th>Cake Pans</th>
+                            <td>8" round and 8" square, non-stick coating</td>
+                        </tr>
+                        <tr>
+                            <th>Loaf Pan</th>
+                            <td>9" x 5" non-stick</td>
+                        </tr>
+                        <tr>
+                            <th>Muffin Tin</th>
+                            <td>12-cup non-stick</td>
+                        </tr>
+                        <tr>
+                            <th>Measuring Tools</th>
+                            <td>Stainless steel measuring cups and spoons, 2-cup liquid measuring cup</td>
+                        </tr>
+                        <tr>
+                            <th>Mixing Bowls</th>
+                            <td>Stainless steel nesting set (2-quart, 3-quart, 5-quart)</td>
+                        </tr>
+                        <tr>
+                            <th>Silicone Baking Mat</th>
+                            <td>16.5" x 11.6", heat resistant to 480°F</td>
+                        </tr>
+                        <tr>
+                            <th>Spice Kit</th>
+                            <td>8 essential baking spices in labeled glass jars</td>
+                        </tr>
+                        <tr>
+                            <th>Storage Case</th>
+                            <td>Custom-designed hard case with foam inserts, 22" x 16" x 14"</td>
+                        </tr>
+                        <tr>
+                            <th>Total Items</th>
+                            <td>Approximately 25 pieces</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>Approximately 20 lbs</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-content" id="reviews">
+                    <h3>Customer Reviews</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The Baking Collection made our family vacation so special! We made cookies and a birthday cake for our daughter, and everything turned out perfectly. The stand mixer alone was worth it!"</p>
+                            <p class="testimonial-author">- Amanda H., Portland</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"I was worried about how to make my traditional holiday cookies during our vacation rental stay, but this kit solved all my problems. High quality equipment that performed as well as what I have at home."</p>
+                            <p class="testimonial-author">- Michael T., Chicago</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"Our rainy vacation day turned into a fun baking day thanks to this collection. The kids had a blast making cupcakes, and everything was so well organized in the case. Cleanup was non-existent since we just put it all back in the case!"</p>
+                            <p class="testimonial-author">- Sarah K., Boston</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The quality of the bakeware was impressive - non-stick that actually worked, and the stand mixer was a professional model. I baked bread twice during our stay and everything came out perfectly."</p>
+                            <p class="testimonial-author">- David R., San Diego</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="related-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>You Might Also Like</h2>
+                <p>Other premium kitchenware collections to enhance your vacation cooking.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/chefs-kit.jpg" alt="Professional Chef's Kit">
+                    </div>
+                    <h3 class="product-title">Professional Chef's Kit</h3>
+                    <p>Our most comprehensive collection with professional-grade tools.</p>
+                    <div class="product-price">$89/week</div>
+                    <div class="product-actions">
+                        <a href="product-details.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/italian-cuisine.jpg" alt="Italian Cuisine Kit">
+                    </div>
+                    <h3 class="product-title">Italian Cuisine Kit</h3>
+                    <p>Everything you need for authentic Italian cooking.</p>
+                    <div class="product-price">$75/week</div>
+                    <div class="product-actions">
+                        <a href="italian-cuisine.html" class="btn btn-outline">View Details</a>
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="feature-card product-card">
+                    <div class="product-image">
+                        <img src="images/spice-collection.jpg" alt="Premium Spice Collection">
+                    </div>
+                    <h3 class="product-title">Premium Spice Collection</h3>
+                    <p>24 essential spices in glass jars with labels.</p>
+                    <div class="product-price">$15/week</div>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Upgrade Your Vacation Cooking?</h2>
+            <p>Book your premium kitchenware kit today and experience the joy of cooking with professional tools during your next vacation.</p>
+            <a href="book-now.html" class="btn">Book Your Kitchenware Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KitchenLux</h3>
+                    <p>Bringing premium kitchenware to your vacation rental, so you can cook like you're home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>📘</span></a>
+                        <a href="#" class="social-link"><span>📱</span></a>
+                        <a href="#" class="social-link"><span>📸</span></a>
+                        <a href="#" class="social-link"><span>📌</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="catalog.html">Collections</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="product-details.html">Chef's Essentials</a></li>
+                        <li><a href="baking-collection.html">Baking Collection</a></li>
+                        <li><a href="italian-cuisine.html">Italian Cuisine</a></li>
+                        <li><a href="bbq-collection.html">BBQ Collection</a></li>
+                        <li><a href="holiday-kit.html">Holiday Cooking Kit</a></li>
+                        <li><a href="asian-fusion.html">Asian Fusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 KitchenLux. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-actions">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="book-now.html" class="btn">Checkout</a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script>
+        // Additional product details page script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
