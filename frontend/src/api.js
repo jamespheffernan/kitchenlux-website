@@ -1,10 +1,12 @@
 // API service for interacting with the KitchenLux backend
-// For cloud storage static hosting, we'll use a deployed backend URL if available
-// Or you can use a mock API service like mockapi.io
+// For production deployment, we use the backend on Render.com
+// For development, we use the local dev server
 const API_URL = import.meta.env.VITE_API_URL || 
   (import.meta.env.MODE === 'production' 
-    ? '/api'  // In production, API calls are relative to the current origin
+    ? 'https://kitchenlux-website.onrender.com/api'  // In production, use Render.com URL
     : 'http://localhost:5001/api');  // In development, use the local dev server
+
+console.log('API URL:', API_URL); // For debugging
 
 // Helper function to handle API responses
 const handleResponse = async (response) => {
@@ -29,7 +31,13 @@ export const getProducts = async (keyword = '', pageNumber = '', category = '') 
     if (pageNumber) url += `pageNumber=${pageNumber}&`;
     if (category) url += `category=${category}`;
     
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return handleResponse(response);
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -39,7 +47,13 @@ export const getProducts = async (keyword = '', pageNumber = '', category = '') 
 
 export const fetchProductDetails = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/products/${id}`);
+    const response = await fetch(`${API_URL}/products/${id}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return handleResponse(response);
   } catch (error) {
     console.error('Error fetching product details:', error);
