@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { fetchProductBySlug, fetchProductDetails, createProductReview } from '../api';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
+import { getProductImageUrl, createImageErrorHandler } from '../utils/imageUtils';
 import { toast } from 'react-toastify';
 import './ProductPage.css';
 
@@ -134,12 +135,9 @@ const ProductPage = () => {
           <div className="product-gallery">
             <div className="main-image">
               <img 
-                src={`${product.image}?${Date.now()}`}
+                src={getProductImageUrl(product.slug)}
                 alt={product.name}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://source.unsplash.com/random/800x600/?kitchen";
-                }}
+                onError={createImageErrorHandler(product.category?.toLowerCase() || 'kitchen')}
               />
             </div>
             {/* If we had multiple images, we'd show thumbnails here */}

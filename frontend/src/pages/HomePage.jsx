@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchTopProducts } from '../api';
+import { getHeroImageUrl, getProductImageUrl, createImageErrorHandler } from '../utils/imageUtils';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -36,12 +37,9 @@ const HomePage = () => {
             </div>
             <div className="hero-image">
               <img 
-                src="https://source.unsplash.com/XoByiBymX20/1200x800" 
+                src={getHeroImageUrl('kitchen-hero')}
                 alt="Premium kitchenware"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://source.unsplash.com/random/1200x800/?kitchen";
-                }}
+                onError={createImageErrorHandler('kitchen', '1200x800')}
               />
             </div>
           </div>
@@ -93,13 +91,10 @@ const HomePage = () => {
                 <div key={product._id} className="collection-card">
                   <div className="collection-image">
                     <img 
-                      src={`${product.image}?${Date.now()}`} 
+                      src={getProductImageUrl(product.slug)} 
                       alt={product.name}
                       loading="lazy"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "https://source.unsplash.com/random/800x600/?kitchen";
-                      }}
+                      onError={createImageErrorHandler(product.category?.toLowerCase() || 'kitchen')}
                     />
                   </div>
                   <div className="collection-content">

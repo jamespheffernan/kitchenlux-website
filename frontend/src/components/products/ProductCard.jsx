@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
+import { getProductImageUrl, createImageErrorHandler } from '../../utils/imageUtils';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
@@ -15,13 +16,10 @@ const ProductCard = ({ product }) => {
       <div className="product-image">
         <Link to={`/products/${product.slug}`}>
           <img 
-            src={`${product.image}?${Date.now()}`} 
+            src={getProductImageUrl(product.slug)} 
             alt={product.name} 
             loading="lazy"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://source.unsplash.com/random/800x600/?kitchen";
-            }}
+            onError={createImageErrorHandler(product.category?.toLowerCase() || 'kitchen')}
           />
         </Link>
         {product.isPopular && <span className="product-badge">Popular</span>}
