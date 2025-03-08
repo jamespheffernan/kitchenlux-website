@@ -23,46 +23,56 @@ const HERO_IMAGES = {
 };
 
 /**
- * Get a reliable image URL from Unsplash for a product
- * Removed cache busting query parameter to avoid CORB issues
+ * Get a reliable image URL for a product using our proxy to avoid CORB issues
  * @param {string} productSlug - The slug of the product
  * @param {string} size - The size of the image (default: 800x600)
- * @returns {string} - The Unsplash URL
+ * @returns {string} - The proxied image URL
  */
 export const getProductImageUrl = (productSlug, size = '800x600') => {
   // Extract the base slug without any query parameters
-  const baseSlug = productSlug.split('?')[0].toLowerCase().trim();
+  const baseSlug = productSlug?.split('?')[0].toLowerCase().trim() || '';
   
   // Get the Unsplash photo ID for this product, or use default
   const photoId = PRODUCT_IMAGE_MAP[baseSlug] || PRODUCT_IMAGE_MAP.default;
   
-  // Return the Unsplash source URL without query parameters
-  return `https://source.unsplash.com/${photoId}/${size}`;
+  // Use our backend proxy to avoid CORB issues
+  // This requests the image through our own domain, avoiding cross-origin issues
+  const API_URL = import.meta.env.VITE_API_URL || 
+    (import.meta.env.MODE === 'production' 
+      ? 'https://kitchenlux-website.onrender.com/api'
+      : 'http://localhost:5001/api');
+      
+  return `${API_URL}/images/proxy/${photoId}/${size}`;
 };
 
 /**
- * Get a hero image URL
+ * Get a hero image URL using our proxy to avoid CORB issues
  * @param {string} imageName - The name of the hero image
  * @param {string} size - The size of the image (default: 1200x800)
- * @returns {string} - The Unsplash URL
+ * @returns {string} - The proxied image URL
  */
 export const getHeroImageUrl = (imageName, size = '1200x800') => {
   // Clean up the image name
-  const cleanName = imageName.replace(/\/images\//g, '').replace('.jpg', '').toLowerCase().trim();
+  const cleanName = imageName?.replace(/\/images\//g, '').replace('.jpg', '').toLowerCase().trim() || '';
   
   // Get the Unsplash photo ID for this hero image, or use default
   const photoId = HERO_IMAGES[cleanName] || HERO_IMAGES.default;
   
-  // Return the Unsplash source URL
-  return `https://source.unsplash.com/${photoId}/${size}`;
+  // Use our backend proxy to avoid CORB issues
+  const API_URL = import.meta.env.VITE_API_URL || 
+    (import.meta.env.MODE === 'production' 
+      ? 'https://kitchenlux-website.onrender.com/api'
+      : 'http://localhost:5001/api');
+      
+  return `${API_URL}/images/proxy/${photoId}/${size}`;
 };
 
 /**
  * Get a fallback image URL if the main image fails to load
- * Using fixed Unsplash photo IDs instead of search queries to avoid CORB issues
+ * Using our proxy service to avoid CORB issues
  * @param {string} category - The category to use for the fallback (default: 'kitchen')
  * @param {string} size - The size of the image (default: 800x600)
- * @returns {string} - The fallback URL
+ * @returns {string} - The proxied fallback URL
  */
 export const getFallbackImageUrl = (category = 'kitchen', size = '800x600') => {
   // Map of categories to safe, direct Unsplash photo IDs
@@ -79,10 +89,15 @@ export const getFallbackImageUrl = (category = 'kitchen', size = '800x600') => {
   };
   
   // Get the appropriate photo ID based on category or use default
-  const photoId = FALLBACK_IMAGE_MAP[category.toLowerCase()] || FALLBACK_IMAGE_MAP.default;
+  const photoId = FALLBACK_IMAGE_MAP[(category || '').toLowerCase()] || FALLBACK_IMAGE_MAP.default;
   
-  // Return direct Unsplash URL without query parameters
-  return `https://source.unsplash.com/${photoId}/${size}`;
+  // Use our backend proxy to avoid CORB issues
+  const API_URL = import.meta.env.VITE_API_URL || 
+    (import.meta.env.MODE === 'production' 
+      ? 'https://kitchenlux-website.onrender.com/api'
+      : 'http://localhost:5001/api');
+      
+  return `${API_URL}/images/proxy/${photoId}/${size}`;
 };
 
 /**

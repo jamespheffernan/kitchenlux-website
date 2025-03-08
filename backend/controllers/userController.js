@@ -11,12 +11,15 @@ const authUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+      // Generate token and set HTTP-only cookie
+      const token = generateToken(user._id, res);
+      
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: generateToken(user._id),
+        token, // Still include token in response for backward compatibility
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
@@ -49,12 +52,15 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
+      // Generate token and set HTTP-only cookie
+      const token = generateToken(user._id, res);
+      
       res.status(201).json({
         _id: user._id,
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: generateToken(user._id),
+        token, // Still include token in response for backward compatibility
       });
     } else {
       res.status(400).json({ message: 'Invalid user data' });
@@ -108,6 +114,9 @@ const updateUserProfile = async (req, res) => {
 
       const updatedUser = await user.save();
 
+      // Generate token and set HTTP-only cookie
+      const token = generateToken(updatedUser._id, res);
+      
       res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
@@ -115,7 +124,7 @@ const updateUserProfile = async (req, res) => {
         isAdmin: updatedUser.isAdmin,
         phone: updatedUser.phone,
         address: updatedUser.address,
-        token: generateToken(updatedUser._id),
+        token, // Still include token in response for backward compatibility
       });
     } else {
       res.status(404).json({ message: 'User not found' });
