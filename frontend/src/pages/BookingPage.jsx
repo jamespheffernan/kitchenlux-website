@@ -116,16 +116,18 @@ const BookingPage = () => {
   };
 
   const handleProductSubmit = () => {
-    if (!selectedProduct) {
-      toast.error('Please select a kitchenware kit');
-      return;
+    // If cart already has items or a product is selected, proceed to next step
+    if (cartItems.length > 0 || selectedProduct) {
+      // If a new product is selected, add it to the cart
+      if (selectedProduct) {
+        addToCart(selectedProduct, quantity);
+      }
+      
+      // Move to the next step
+      nextStep();
+    } else {
+      toast.error('Please select a kitchenware kit or add items to your cart first');
     }
-    
-    // Add selected product to cart
-    addToCart(selectedProduct, quantity);
-    
-    // Move to the next step
-    nextStep();
   };
 
   // Date selection handlers
@@ -333,6 +335,29 @@ const BookingPage = () => {
           Choose from our curated collections or build your own custom set.
         </p>
         
+        {cartItems.length > 0 && (
+          <div className="cart-preview">
+            <h3>Currently in Your Cart</h3>
+            <div className="cart-preview-items">
+              {cartItems.map((item) => (
+                <div key={item._id} className="cart-preview-item">
+                  <div className="item-image">
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className="item-details">
+                    <h4>{item.name}</h4>
+                    <p>Quantity: {item.qty}</p>
+                    <p className="item-price">${(item.price * item.qty).toFixed(2)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="cart-message">
+              <p>You can proceed with these items or add more below.</p>
+            </div>
+          </div>
+        )}
+        
         <div className="product-cards">
           {products.map((product) => (
             <div 
@@ -345,8 +370,8 @@ const BookingPage = () => {
               </div>
               <div className="product-details">
                 <h3>{product.name}</h3>
-                <p className="product-description">{product.description.substring(0, 100)}...</p>
-                <div className="product-price">${product.price.toFixed(2)}/week</div>
+                <p className="product-description">{product.description?.substring(0, 100) || 'Premium kitchenware kit'}...</p>
+                <div className="product-price">${(product.price || 49.99).toFixed(2)}/week</div>
               </div>
               {selectedProduct && selectedProduct._id === product._id && (
                 <div className="selected-badge">✓</div>
@@ -375,7 +400,7 @@ const BookingPage = () => {
           <button 
             className="btn btn-primary" 
             onClick={handleProductSubmit}
-            disabled={!selectedProduct}
+            disabled={!selectedProduct && cartItems.length === 0}
           >
             Continue to Dates
           </button>
