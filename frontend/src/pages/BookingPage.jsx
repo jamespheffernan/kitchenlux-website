@@ -401,7 +401,78 @@ const BookingPage = () => {
               ))}
             </div>
             <div className="cart-message">
-              <p>You can proceed with these items or add more below.</p>
+              <p>You can proceed with these items or add recommended products below.</p>
+            </div>
+            
+            <div className="recommended-products">
+              <h4>Frequently Paired Together</h4>
+              <div className="recommended-items">
+                {/* Damage Protection Recommendation */}
+                <div className="recommended-item">
+                  <div className="rec-item-image">
+                    <div className="rec-icon">🛡️</div>
+                  </div>
+                  <div className="rec-item-details">
+                    <h5>Damage Protection</h5>
+                    <p>Peace of mind for your rental</p>
+                    <p className="rec-item-price">+10% of rental cost</p>
+                  </div>
+                  <button 
+                    className="btn-add-recommended" 
+                    onClick={handleDamageProtectionToggle}
+                  >
+                    {damageProtection ? 'Remove' : 'Add'}
+                  </button>
+                </div>
+                
+                {/* Spice Collection */}
+                <div className="recommended-item">
+                  <div className="rec-item-image">
+                    <div className="rec-icon">🌶️</div>
+                  </div>
+                  <div className="rec-item-details">
+                    <h5>Premium Spice Collection</h5>
+                    <p>30 essential spices for your cooking</p>
+                    <p className="rec-item-price">$19.99</p>
+                  </div>
+                  <button 
+                    className="btn-add-recommended"
+                    onClick={() => addToCart({
+                      _id: 'spice-collection-123',
+                      name: 'Premium Spice Collection',
+                      slug: 'premium-spice-collection',
+                      price: 19.99,
+                      image: '/images/spice-collection.jpg'
+                    }, 1)}
+                  >
+                    Add
+                  </button>
+                </div>
+                
+                {/* Chef's Knife */}
+                <div className="recommended-item">
+                  <div className="rec-item-image">
+                    <div className="rec-icon">🔪</div>
+                  </div>
+                  <div className="rec-item-details">
+                    <h5>Professional Chef's Knife</h5>
+                    <p>8" high-carbon steel blade</p>
+                    <p className="rec-item-price">$14.99</p>
+                  </div>
+                  <button 
+                    className="btn-add-recommended"
+                    onClick={() => addToCart({
+                      _id: 'chefs-knife-123',
+                      name: 'Professional Chef\'s Knife',
+                      slug: 'professional-chefs-knife',
+                      price: 14.99,
+                      image: '/images/chefs-knife.jpg'
+                    }, 1)}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}
