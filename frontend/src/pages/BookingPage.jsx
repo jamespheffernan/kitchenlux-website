@@ -166,21 +166,64 @@ const BookingPage = () => {
     setUseAirbnbListing(!useAirbnbListing);
   };
 
+  // Helper function to clean and validate Airbnb URLs
+  const cleanAirbnbUrl = (url) => {
+    try {
+      // Return null for empty URLs
+      if (!url) return null;
+      
+      // Create a URL object to parse the components
+      const urlObj = new URL(url);
+      
+      // Check if it's an Airbnb domain (both .com and international variants)
+      const isAirbnbDomain = urlObj.hostname.includes('airbnb.') || 
+                             urlObj.hostname === 'airbnb' ||
+                             urlObj.hostname.startsWith('www.airbnb.');
+      
+      if (!isAirbnbDomain) return null;
+      
+      // Extract just the base path with room ID, assuming format is /rooms/XXXXX
+      const pathParts = urlObj.pathname.split('/');
+      if (pathParts.length >= 3 && pathParts[1] === 'rooms') {
+        // Rebuild the clean URL with just the room ID
+        const roomId = pathParts[2].split('?')[0]; // Remove any query parameters
+        const baseHost = urlObj.hostname.includes('airbnb.') ? urlObj.hostname : 'www.airbnb.com';
+        return `https://${baseHost}/rooms/${roomId}`;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error parsing Airbnb URL:', error);
+      return null;
+    }
+  };
+
   const handleAddressSubmit = () => {
     if (useAirbnbListing) {
-      // Validate Airbnb URL
-      if (!airbnbListingUrl || !airbnbListingUrl.includes('airbnb.com')) {
-        toast.error('Please enter a valid Airbnb listing URL');
+      // Clean and validate the Airbnb URL
+      const cleanedUrl = cleanAirbnbUrl(airbnbListingUrl);
+      
+      if (!cleanedUrl) {
+        toast.error('Please enter a valid Airbnb listing URL (e.g., https://www.airbnb.com/rooms/12345)');
         return;
+      }
+      
+      // Show the cleaned URL to the user
+      if (cleanedUrl !== airbnbListingUrl) {
+        setAirbnbListingUrl(cleanedUrl);
+        toast.info('Your Airbnb URL has been formatted for clarity');
       }
       
       // In a real app, you would make an API call to get the Airbnb listing details
       // For now, we'll just simulate success
       toast.success('Airbnb listing details retrieved');
       
-      // Set some placeholder address data
+      // Extract the listing ID from the cleaned URL
+      const listingId = cleanedUrl.split('/rooms/')[1];
+      
+      // Set some placeholder address data (in a real app, this would come from the API)
       setAddressData({
-        street: '123 Airbnb St',
+        street: `Airbnb Listing #${listingId}`,
         city: 'Vacation City',
         state: 'CA',
         postalCode: '90210',
@@ -520,6 +563,9 @@ const BookingPage = () => {
                 placeholder="https://www.airbnb.com/rooms/12345678"
                 required
               />
+              <small className="helper-text">
+                We support all Airbnb domains (airbnb.com, airbnb.co.uk, etc.) and will clean up any tracking parameters.
+              </small>
             </div>
             <p className="helper-text">
               We'll extract the address information from your Airbnb listing to ensure accurate delivery.
