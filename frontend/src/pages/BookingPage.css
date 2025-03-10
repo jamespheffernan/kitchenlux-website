@@ -767,14 +767,28 @@
 }
 
 @media (max-width: 768px) {
+  .booking-page {
+    padding: 100px 0 60px;
+  }
+  
   .booking-progress {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 30px;
   }
   
   .progress-line {
     display: none;
+  }
+  
+  .progress-step {
+    width: 80px;
+  }
+  
+  .progress-step .step-label {
+    font-size: 12px;
+    text-align: center;
   }
   
   .form-row, 
@@ -789,5 +803,58 @@
   
   .address-type-toggle {
     flex-direction: column;
+  }
+  
+  .booking-section {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .step-buttons {
+    flex-direction: column-reverse;
+    gap: 15px;
+  }
+  
+  .step-buttons button {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .recommended-items {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .booking-page {
+    padding: 90px 0 40px; 
+  }
+  
+  .page-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .cart-preview-item,
+  .review-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .cart-preview-item .item-image,
+  .review-item .item-image {
+    width: 100%;
+    height: 150px;
+    margin-right: 0;
+  }
+  
+  .form-control {
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+  
+  .payment-label {
+    padding: 12px;
   }
 }

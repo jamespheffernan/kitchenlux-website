@@ -26,8 +26,14 @@ const Header = () => {
       }
     };
 
+    // Handle both mouse and touch events
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside, { passive: true });
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, [menuOpen, cartOpen]);
 
   const handleLogout = () => {

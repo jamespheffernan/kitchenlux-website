@@ -92,13 +92,14 @@ const CartPage = () => {
                     </div>
                   </div>
                   
-                  <div className="cart-item-price">${item.price.toFixed(2)}/week</div>
+                  <div className="cart-item-price" data-label="Price:">${item.price.toFixed(2)}/week</div>
                   
-                  <div className="cart-item-quantity">
+                  <div className="cart-item-quantity" data-label="Quantity:">
                     <div className="quantity-selector">
                       <button 
                         onClick={() => updateQuantity(item._id, item.qty - 1)}
                         disabled={item.qty <= 1}
+                        aria-label="Decrease quantity"
                       >
                         -
                       </button>
@@ -106,13 +107,14 @@ const CartPage = () => {
                       <button 
                         onClick={() => updateQuantity(item._id, item.qty + 1)}
                         disabled={item.qty >= item.countInStock}
+                        aria-label="Increase quantity"
                       >
                         +
                       </button>
                     </div>
                   </div>
                   
-                  <div className="cart-item-total">
+                  <div className="cart-item-total" data-label="Total:">
                     ${(item.price * item.qty).toFixed(2)}
                   </div>
                   

@@ -10,6 +10,12 @@
   align-items: center;
 }
 
+@media (max-width: 576px) {
+  .header {
+    height: 70px;
+  }
+}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -95,6 +101,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
+  margin: -8px; /* Increase touch target without affecting layout */
 }
 
 .cart-count {
@@ -153,7 +161,7 @@ nav {
 
 .user-dropdown a, .user-dropdown button {
   display: block;
-  padding: 10px 15px;
+  padding: 12px 15px;
   text-decoration: none;
   color: var(--dark);
   transition: var(--transition);
@@ -166,8 +174,20 @@ nav {
   cursor: pointer;
 }
 
-.user-dropdown a:hover, .user-dropdown button:hover {
+.user-dropdown a:hover, .user-dropdown button:hover,
+.user-dropdown a:active, .user-dropdown button:active {
   background-color: rgba(146, 109, 38, 0.1);
+}
+
+@media (max-width: 576px) {
+  .user-dropdown {
+    right: -10px;
+  }
+  
+  .user-dropdown a, .user-dropdown button {
+    padding: 14px 16px;
+    font-size: 16px;
+  }
 }
 
 .hamburger {
@@ -177,6 +197,8 @@ nav {
   height: 20px;
   position: relative;
   z-index: 101;
+  padding: 10px;
+  margin: -10px;
 }
 
 .hamburger span {
@@ -300,10 +322,17 @@ nav {
   font-size: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  margin: -8px;
+  border-radius: 50%;
 }
 
-.remove-item:hover {
+.remove-item:hover, .remove-item:active {
   color: #ff4d4d;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .cart-total {
@@ -352,6 +381,8 @@ nav {
     padding: 30px;
     transition: left 0.3s ease;
     gap: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .nav-links.active {
@@ -360,5 +391,48 @@ nav {
   
   .hamburger {
     display: block;
+  }
+  
+  .cart-dropdown {
+    width: 320px;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-links {
+    top: 70px;
+    height: calc(100vh - 70px);
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  .logo {
+    font-size: 24px;
+  }
+  
+  .cart-dropdown {
+    top: 70px;
+    width: 100%;
+    max-width: 100%;
+    height: calc(100vh - 70px);
+  }
+  
+  .nav-actions {
+    gap: 15px;
+  }
+  
+  .user-menu-button {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+  
+  .cart-icon {
+    font-size: 22px;
+  }
+  
+  .hamburger {
+    width: 24px;
+    height: 18px;
   }
 }
