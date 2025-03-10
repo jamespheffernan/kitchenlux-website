@@ -1,18 +1,47 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
-import { createOrder, getUserProfile } from '../api';
+import { createOrder, getUserProfile, getProducts } from '../api';
 import { toast } from 'react-toastify';
+import { format } from 'date-fns';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import './BookingPage.css';
 
 const BookingPage = () => {
-  const { cartItems, rentalDates, damageProtection, subtotal, damageProtectionFee, deliveryFee, tax, total, clearCart } = useContext(CartContext);
+  const { 
+    cartItems, 
+    rentalDates, 
+    damageProtection, 
+    subtotal, 
+    damageProtectionFee, 
+    deliveryFee, 
+    tax, 
+    total, 
+    clearCart,
+    addToCart,
+    setRentalPeriod,
+    toggleDamageProtection
+  } = useContext(CartContext);
   const { userInfo } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // Multi-step booking state
+  const [currentStep, setCurrentStep] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  // User profile state
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  // Date selection state
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date(new Date().setDate(new Date().getDate() + 7)));
+  
+  // Address state
   const [addressData, setAddressData] = useState({
     street: '',
     city: '',
@@ -20,10 +49,12 @@ const BookingPage = () => {
     postalCode: '',
     country: 'USA',
   });
+  const [airbnbListingUrl, setAirbnbListingUrl] = useState('');
+  const [useAirbnbListing, setUseAirbnbListing] = useState(false);
+  
+  // Payment state
   const [paymentMethod, setPaymentMethod] = useState('stripe');
   const [showStripeForm, setShowStripeForm] = useState(false);
-
-  // Payment form state
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cardExpiry, setCardExpiry] = useState('');
@@ -31,20 +62,12 @@ const BookingPage = () => {
   const [placingOrder, setPlacingOrder] = useState(false);
 
   useEffect(() => {
-    if (cartItems.length === 0) {
-      navigate('/cart');
-      return;
-    }
-
-    if (!rentalDates.start || !rentalDates.end) {
-      toast.error('Please select rental dates');
-      navigate('/cart');
-      return;
-    }
-    
-    const loadUserProfile = async () => {
+    // Load products and user profile
+    const loadInitialData = async () => {
       try {
         setLoading(true);
+        
+        // Load user profile
         const profile = await getUserProfile();
         setUserProfile(profile);
         
@@ -59,16 +82,72 @@ const BookingPage = () => {
           });
         }
         
+        // Load kitchenware collections/products
+        const productData = await getProducts();
+        setProducts(productData);
+        
         setLoading(false);
       } catch (error) {
-        console.error('Error loading profile:', error);
+        console.error('Error loading initial data:', error);
+        toast.error('Error loading products. Please try again.');
         setLoading(false);
       }
     };
     
-    loadUserProfile();
-  }, [cartItems, navigate, rentalDates, userInfo]);
+    loadInitialData();
+  }, []);
 
+  // Step handlers
+  const nextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const prevStep = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
+  // Product selection handlers
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleQuantityChange = (e) => {
+    setQuantity(parseInt(e.target.value));
+  };
+
+  const handleProductSubmit = () => {
+    if (!selectedProduct) {
+      toast.error('Please select a kitchenware kit');
+      return;
+    }
+    
+    // Add selected product to cart
+    addToCart(selectedProduct, quantity);
+    
+    // Move to the next step
+    nextStep();
+  };
+
+  // Date selection handlers
+  const handleDateChange = () => {
+    if (!startDate || !endDate) {
+      toast.error('Please select both start and end dates');
+      return;
+    }
+    
+    if (startDate >= endDate) {
+      toast.error('End date must be after start date');
+      return;
+    }
+    
+    // Set rental period in the cart context
+    setRentalPeriod(startDate, endDate);
+    
+    // Move to the next step
+    nextStep();
+  };
+
+  // Address handlers
   const handleAddressChange = (e) => {
     setAddressData({
       ...addressData,
@@ -76,19 +155,58 @@ const BookingPage = () => {
     });
   };
 
+  const handleAirbnbUrlChange = (e) => {
+    setAirbnbListingUrl(e.target.value);
+  };
+
+  const toggleAddressType = () => {
+    setUseAirbnbListing(!useAirbnbListing);
+  };
+
+  const handleAddressSubmit = () => {
+    if (useAirbnbListing) {
+      // Validate Airbnb URL
+      if (!airbnbListingUrl || !airbnbListingUrl.includes('airbnb.com')) {
+        toast.error('Please enter a valid Airbnb listing URL');
+        return;
+      }
+      
+      // In a real app, you would make an API call to get the Airbnb listing details
+      // For now, we'll just simulate success
+      toast.success('Airbnb listing details retrieved');
+      
+      // Set some placeholder address data
+      setAddressData({
+        street: '123 Airbnb St',
+        city: 'Vacation City',
+        state: 'CA',
+        postalCode: '90210',
+        country: 'USA',
+      });
+    } else {
+      // Validate manual address
+      if (!addressData.street || !addressData.city || !addressData.state || !addressData.postalCode) {
+        toast.error('Please fill in all address fields');
+        return;
+      }
+    }
+    
+    // Move to the next step
+    nextStep();
+  };
+
+  // Payment handlers
   const handlePaymentMethodChange = (method) => {
     setPaymentMethod(method);
     setShowStripeForm(method === 'stripe');
   };
 
+  const handleDamageProtectionToggle = () => {
+    toggleDamageProtection();
+  };
+
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
-    
-    // Basic validation
-    if (!addressData.street || !addressData.city || !addressData.state || !addressData.postalCode) {
-      toast.error('Please fill in all address fields');
-      return;
-    }
     
     // Validate payment details
     if (paymentMethod === 'stripe') {
@@ -135,14 +253,12 @@ const BookingPage = () => {
         damageProtection,
         damageProtectionFee,
         totalPrice: total,
-        rentalStart: rentalDates.start,
-        rentalEnd: rentalDates.end,
+        rentalStart: startDate,
+        rentalEnd: endDate,
+        airbnbListing: useAirbnbListing ? airbnbListingUrl : null,
       };
       
       const createdOrder = await createOrder(orderData);
-      
-      // In a real app, you would process the payment here
-      // and update the order with the payment result
       
       // Clear cart and redirect to confirmation page
       clearCart();
@@ -183,6 +299,514 @@ const BookingPage = () => {
     return v;
   };
 
+  const renderProgressBar = () => {
+    return (
+      <div className="booking-progress">
+        <div className={`progress-step ${currentStep >= 1 ? 'active' : ''}`}>
+          <div className="step-number">1</div>
+          <div className="step-label">Select Kit</div>
+        </div>
+        <div className="progress-line"></div>
+        <div className={`progress-step ${currentStep >= 2 ? 'active' : ''}`}>
+          <div className="step-number">2</div>
+          <div className="step-label">Dates</div>
+        </div>
+        <div className="progress-line"></div>
+        <div className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}>
+          <div className="step-number">3</div>
+          <div className="step-label">Address</div>
+        </div>
+        <div className="progress-line"></div>
+        <div className={`progress-step ${currentStep >= 4 ? 'active' : ''}`}>
+          <div className="step-number">4</div>
+          <div className="step-label">Payment</div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderProductSelection = () => {
+    return (
+      <div className="booking-section">
+        <h2>Select Your Kitchenware Kit</h2>
+        <p className="section-description">
+          Choose from our curated collections or build your own custom set.
+        </p>
+        
+        <div className="product-cards">
+          {products.map((product) => (
+            <div 
+              key={product._id} 
+              className={`product-card ${selectedProduct && selectedProduct._id === product._id ? 'selected' : ''}`}
+              onClick={() => handleProductSelect(product)}
+            >
+              <div className="product-image">
+                <img src={product.image} alt={product.name} />
+              </div>
+              <div className="product-details">
+                <h3>{product.name}</h3>
+                <p className="product-description">{product.description.substring(0, 100)}...</p>
+                <div className="product-price">${product.price.toFixed(2)}/week</div>
+              </div>
+              {selectedProduct && selectedProduct._id === product._id && (
+                <div className="selected-badge">✓</div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        {selectedProduct && (
+          <div className="quantity-selector">
+            <label htmlFor="quantity">Quantity:</label>
+            <select 
+              id="quantity" 
+              value={quantity} 
+              onChange={handleQuantityChange}
+              className="form-control"
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <option key={num} value={num}>{num}</option>
+              ))}
+            </select>
+          </div>
+        )}
+        
+        <div className="step-buttons">
+          <button 
+            className="btn btn-primary" 
+            onClick={handleProductSubmit}
+            disabled={!selectedProduct}
+          >
+            Continue to Dates
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderDateSelection = () => {
+    return (
+      <div className="booking-section">
+        <h2>Select Rental Dates</h2>
+        <p className="section-description">
+          Choose when you want your kitchenware delivered and picked up.
+        </p>
+        
+        <div className="date-picker-container">
+          <div className="date-picker">
+            <label>Delivery Date</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              minDate={new Date()}
+              className="form-control"
+              dateFormat="MM/dd/yyyy"
+            />
+          </div>
+          
+          <div className="date-picker">
+            <label>Pickup Date</label>
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              className="form-control"
+              dateFormat="MM/dd/yyyy"
+            />
+          </div>
+        </div>
+        
+        <div className="rental-duration">
+          <p>
+            Rental Duration: {startDate && endDate ? 
+              Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) : 0} days
+          </p>
+        </div>
+        
+        <div className="step-buttons">
+          <button className="btn btn-secondary" onClick={prevStep}>
+            Back
+          </button>
+          <button className="btn btn-primary" onClick={handleDateChange}>
+            Continue to Address
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderAddressInput = () => {
+    return (
+      <div className="booking-section">
+        <h2>Delivery Address</h2>
+        <p className="section-description">
+          Please provide the address for your vacation rental.
+        </p>
+        
+        <div className="address-type-toggle">
+          <div className="toggle-option">
+            <input
+              type="radio"
+              id="manual-address"
+              name="addressType"
+              checked={!useAirbnbListing}
+              onChange={toggleAddressType}
+            />
+            <label htmlFor="manual-address">Enter Address Manually</label>
+          </div>
+          
+          <div className="toggle-option">
+            <input
+              type="radio"
+              id="airbnb-listing"
+              name="addressType"
+              checked={useAirbnbListing}
+              onChange={toggleAddressType}
+            />
+            <label htmlFor="airbnb-listing">Use Airbnb Listing</label>
+          </div>
+        </div>
+        
+        {useAirbnbListing ? (
+          <div className="airbnb-form">
+            <div className="form-group">
+              <label htmlFor="airbnbUrl">Airbnb Listing URL</label>
+              <input
+                type="text"
+                id="airbnbUrl"
+                className="form-control"
+                value={airbnbListingUrl}
+                onChange={handleAirbnbUrlChange}
+                placeholder="https://www.airbnb.com/rooms/12345678"
+                required
+              />
+            </div>
+            <p className="helper-text">
+              We'll extract the address information from your Airbnb listing to ensure accurate delivery.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="form-group">
+              <label htmlFor="street">Street Address</label>
+              <input
+                type="text"
+                id="street"
+                className="form-control"
+                value={addressData.street}
+                onChange={handleAddressChange}
+                required
+                placeholder="Enter street address"
+              />
+            </div>
+            
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="city">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  className="form-control"
+                  value={addressData.city}
+                  onChange={handleAddressChange}
+                  required
+                  placeholder="Enter city"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="state">State</label>
+                <input
+                  type="text"
+                  id="state"
+                  className="form-control"
+                  value={addressData.state}
+                  onChange={handleAddressChange}
+                  required
+                  placeholder="Enter state"
+                />
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="postalCode">Postal Code</label>
+                <input
+                  type="text"
+                  id="postalCode"
+                  className="form-control"
+                  value={addressData.postalCode}
+                  onChange={handleAddressChange}
+                  required
+                  placeholder="Enter postal code"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="country">Country</label>
+                <select
+                  id="country"
+                  className="form-control"
+                  value={addressData.country}
+                  onChange={handleAddressChange}
+                  required
+                >
+                  <option value="USA">United States</option>
+                  <option value="CAN">Canada</option>
+                  <option value="MEX">Mexico</option>
+                </select>
+              </div>
+            </div>
+          </>
+        )}
+        
+        <div className="step-buttons">
+          <button className="btn btn-secondary" onClick={prevStep}>
+            Back
+          </button>
+          <button className="btn btn-primary" onClick={handleAddressSubmit}>
+            Continue to Payment
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderPaymentAndConfirmation = () => {
+    return (
+      <div className="booking-section">
+        <h2>Payment & Confirmation</h2>
+        <p className="section-description">
+          Review your order and complete payment.
+        </p>
+        
+        <div className="order-review">
+          <h3>Order Details</h3>
+          <div className="review-section">
+            <div className="review-items">
+              {cartItems.map((item) => (
+                <div key={item._id} className="review-item">
+                  <div className="item-image">
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className="item-details">
+                    <h4>{item.name}</h4>
+                    <p className="item-quantity">Quantity: {item.qty}</p>
+                    <p className="item-price">${(item.price * item.qty).toFixed(2)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="review-section">
+            <h3>Rental Period</h3>
+            <p>
+              <strong>Delivery:</strong> {startDate?.toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Pickup:</strong> {endDate?.toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Duration:</strong> {startDate && endDate ? 
+                Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) : 0} days
+            </p>
+          </div>
+          
+          <div className="review-section">
+            <h3>Delivery Address</h3>
+            {useAirbnbListing ? (
+              <p>Using Airbnb listing: {airbnbListingUrl}</p>
+            ) : (
+              <>
+                <p>{addressData.street}</p>
+                <p>{addressData.city}, {addressData.state} {addressData.postalCode}</p>
+                <p>{addressData.country}</p>
+              </>
+            )}
+          </div>
+          
+          <div className="review-section">
+            <h3>Additional Options</h3>
+            <div className="damage-protection-option">
+              <input
+                type="checkbox"
+                id="damageProtection"
+                checked={damageProtection}
+                onChange={handleDamageProtectionToggle}
+              />
+              <label htmlFor="damageProtection">
+                Damage Protection (+10% of rental cost)
+              </label>
+              <p className="option-description">
+                Add damage protection to cover accidental damage to kitchenware during your rental period.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="payment-section">
+          <h3>Payment Method</h3>
+          <div className="payment-methods">
+            <div className="payment-method">
+              <input
+                type="radio"
+                id="stripe"
+                name="paymentMethod"
+                value="stripe"
+                checked={paymentMethod === 'stripe'}
+                onChange={() => handlePaymentMethodChange('stripe')}
+              />
+              <label htmlFor="stripe" className="payment-label">
+                Credit Card
+                <span className="payment-icons">
+                  💳
+                </span>
+              </label>
+            </div>
+            
+            <div className="payment-method">
+              <input
+                type="radio"
+                id="paypal"
+                name="paymentMethod"
+                value="paypal"
+                checked={paymentMethod === 'paypal'}
+                onChange={() => handlePaymentMethodChange('paypal')}
+              />
+              <label htmlFor="paypal" className="payment-label">
+                PayPal
+                <span className="payment-icons">
+                  💰
+                </span>
+              </label>
+            </div>
+          </div>
+          
+          {showStripeForm && (
+            <div className="stripe-form">
+              <div className="form-group">
+                <label htmlFor="cardName">Name on Card</label>
+                <input
+                  type="text"
+                  id="cardName"
+                  className="form-control"
+                  value={cardName}
+                  onChange={(e) => setCardName(e.target.value)}
+                  placeholder="Enter name on card"
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="cardNumber">Card Number</label>
+                <input
+                  type="text"
+                  id="cardNumber"
+                  className="form-control"
+                  value={cardNumber}
+                  onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                  placeholder="0000 0000 0000 0000"
+                  maxLength="19"
+                  required
+                />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="cardExpiry">Expiration Date</label>
+                  <input
+                    type="text"
+                    id="cardExpiry"
+                    className="form-control"
+                    value={cardExpiry}
+                    onChange={(e) => setCardExpiry(formatExpiry(e.target.value))}
+                    placeholder="MM/YY"
+                    maxLength="5"
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="cardCVC">CVC</label>
+                  <input
+                    type="text"
+                    id="cardCVC"
+                    className="form-control"
+                    value={cardCVC}
+                    onChange={(e) => setCardCVC(e.target.value.replace(/\D/g, ''))}
+                    placeholder="000"
+                    maxLength="4"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <div className="order-total">
+          <div className="total-row">
+            <span>Subtotal:</span>
+            <span>${subtotal.toFixed(2)}</span>
+          </div>
+          {damageProtection && (
+            <div className="total-row">
+              <span>Damage Protection:</span>
+              <span>${damageProtectionFee.toFixed(2)}</span>
+            </div>
+          )}
+          <div className="total-row">
+            <span>Delivery Fee:</span>
+            <span>${deliveryFee.toFixed(2)}</span>
+          </div>
+          <div className="total-row">
+            <span>Tax:</span>
+            <span>${tax.toFixed(2)}</span>
+          </div>
+          <div className="total-row grand-total">
+            <span>Total:</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+        </div>
+        
+        <div className="step-buttons">
+          <button className="btn btn-secondary" onClick={prevStep}>
+            Back
+          </button>
+          <button 
+            className="btn btn-primary" 
+            onClick={handlePlaceOrder}
+            disabled={placingOrder}
+          >
+            {placingOrder ? 'Processing...' : 'Place Order'}
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return renderProductSelection();
+      case 2:
+        return renderDateSelection();
+      case 3:
+        return renderAddressInput();
+      case 4:
+        return renderPaymentAndConfirmation();
+      default:
+        return renderProductSelection();
+    }
+  };
+
   if (loading) {
     return <div className="loader"></div>;
   }
@@ -190,269 +814,12 @@ const BookingPage = () => {
   return (
     <div className="booking-page">
       <div className="container">
-        <h1 className="page-title">Checkout</h1>
+        <h1 className="page-title">Book Your Kitchenware</h1>
+        
+        {renderProgressBar()}
         
         <div className="booking-container">
-          <div className="booking-details">
-            <form onSubmit={handlePlaceOrder}>
-              <div className="booking-section">
-                <h2>Rental Address</h2>
-                <p className="section-description">
-                  Please enter the address of your vacation rental where you'd like us to deliver your kitchenware.
-                </p>
-                
-                <div className="form-group">
-                  <label htmlFor="street">Street Address</label>
-                  <input
-                    type="text"
-                    id="street"
-                    className="form-control"
-                    value={addressData.street}
-                    onChange={handleAddressChange}
-                    required
-                    placeholder="Enter street address"
-                  />
-                </div>
-                
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="city">City</label>
-                    <input
-                      type="text"
-                      id="city"
-                      className="form-control"
-                      value={addressData.city}
-                      onChange={handleAddressChange}
-                      required
-                      placeholder="Enter city"
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="state">State</label>
-                    <input
-                      type="text"
-                      id="state"
-                      className="form-control"
-                      value={addressData.state}
-                      onChange={handleAddressChange}
-                      required
-                      placeholder="Enter state"
-                    />
-                  </div>
-                </div>
-                
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="postalCode">Postal Code</label>
-                    <input
-                      type="text"
-                      id="postalCode"
-                      className="form-control"
-                      value={addressData.postalCode}
-                      onChange={handleAddressChange}
-                      required
-                      placeholder="Enter postal code"
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="country">Country</label>
-                    <select
-                      id="country"
-                      className="form-control"
-                      value={addressData.country}
-                      onChange={handleAddressChange}
-                      required
-                    >
-                      <option value="USA">United States</option>
-                      <option value="CAN">Canada</option>
-                      <option value="MEX">Mexico</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="booking-section">
-                <h2>Payment Method</h2>
-                <p className="section-description">
-                  Choose your preferred payment method.
-                </p>
-                
-                <div className="payment-methods">
-                  <div className="payment-method">
-                    <input
-                      type="radio"
-                      id="stripe"
-                      name="paymentMethod"
-                      value="stripe"
-                      checked={paymentMethod === 'stripe'}
-                      onChange={() => handlePaymentMethodChange('stripe')}
-                    />
-                    <label htmlFor="stripe" className="payment-label">
-                      Credit Card
-                      <span className="payment-icons">
-                        💳
-                      </span>
-                    </label>
-                  </div>
-                  
-                  <div className="payment-method">
-                    <input
-                      type="radio"
-                      id="paypal"
-                      name="paymentMethod"
-                      value="paypal"
-                      checked={paymentMethod === 'paypal'}
-                      onChange={() => handlePaymentMethodChange('paypal')}
-                    />
-                    <label htmlFor="paypal" className="payment-label">
-                      PayPal
-                      <span className="payment-icons">
-                        💰
-                      </span>
-                    </label>
-                  </div>
-                </div>
-                
-                {showStripeForm && (
-                  <div className="stripe-form">
-                    <div className="form-group">
-                      <label htmlFor="cardName">Name on Card</label>
-                      <input
-                        type="text"
-                        id="cardName"
-                        className="form-control"
-                        value={cardName}
-                        onChange={(e) => setCardName(e.target.value)}
-                        placeholder="Enter name on card"
-                        required
-                      />
-                    </div>
-                    
-                    <div className="form-group">
-                      <label htmlFor="cardNumber">Card Number</label>
-                      <input
-                        type="text"
-                        id="cardNumber"
-                        className="form-control"
-                        value={cardNumber}
-                        onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                        placeholder="0000 0000 0000 0000"
-                        maxLength="19"
-                        required
-                      />
-                    </div>
-                    
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label htmlFor="cardExpiry">Expiration Date</label>
-                        <input
-                          type="text"
-                          id="cardExpiry"
-                          className="form-control"
-                          value={cardExpiry}
-                          onChange={(e) => setCardExpiry(formatExpiry(e.target.value))}
-                          placeholder="MM/YY"
-                          maxLength="5"
-                          required
-                        />
-                      </div>
-                      
-                      <div className="form-group">
-                        <label htmlFor="cardCVC">CVC</label>
-                        <input
-                          type="text"
-                          id="cardCVC"
-                          className="form-control"
-                          value={cardCVC}
-                          onChange={(e) => setCardCVC(e.target.value.replace(/\D/g, ''))}
-                          placeholder="000"
-                          maxLength="4"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <div className="booking-section">
-                <h2>Rental Information</h2>
-                
-                <div className="rental-info">
-                  <div className="rental-info-row">
-                    <span>Rental Period:</span>
-                    <span>
-                      {rentalDates.start?.toLocaleDateString()} - {rentalDates.end?.toLocaleDateString()}
-                    </span>
-                  </div>
-                  
-                  <div className="rental-info-row">
-                    <span>Damage Protection:</span>
-                    <span>
-                      {damageProtection ? 'Yes' : 'No'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              <button 
-                type="submit" 
-                className="btn btn-place-order"
-                disabled={placingOrder}
-              >
-                {placingOrder ? 'Processing...' : 'Place Order'}
-              </button>
-            </form>
-          </div>
-          
-          <div className="booking-summary">
-            <h2>Order Summary</h2>
-            
-            <div className="cart-items-summary">
-              {cartItems.map((item) => (
-                <div key={item._id} className="cart-item-summary">
-                  <div className="item-image">
-                    <img 
-                      src={item.image.startsWith('http') ? item.image : `${item.image}`}
-                      alt={item.name} 
-                    />
-                  </div>
-                  <div className="item-details">
-                    <h3>{item.name}</h3>
-                    <div className="item-quantity">Qty: {item.qty}</div>
-                    <div className="item-price">${(item.price * item.qty).toFixed(2)}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="cart-totals">
-              <div className="cart-total-row">
-                <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
-              </div>
-              {damageProtection && (
-                <div className="cart-total-row">
-                  <span>Damage Protection</span>
-                  <span>${damageProtectionFee.toFixed(2)}</span>
-                </div>
-              )}
-              <div className="cart-total-row">
-                <span>Delivery Fee</span>
-                <span>${deliveryFee.toFixed(2)}</span>
-              </div>
-              <div className="cart-total-row">
-                <span>Tax</span>
-                <span>${tax.toFixed(2)}</span>
-              </div>
-              <div className="cart-total-row total">
-                <span>Total</span>
-                <span>${total.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
+          {renderCurrentStep()}
         </div>
       </div>
     </div>
