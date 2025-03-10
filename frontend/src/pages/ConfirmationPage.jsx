@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { getOrderDetails } from '../api';
 import { format } from 'date-fns';
+import { getProductImageUrl, createImageErrorHandler } from '../utils/imageUtils';
 import './ConfirmationPage.css';
 
 const ConfirmationPage = () => {
@@ -11,19 +12,70 @@ const ConfirmationPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        setLoading(true);
-        const data = await getOrderDetails(id);
-        setOrder(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message || 'Failed to load order details');
-        setLoading(false);
-      }
-    };
-
-    fetchOrder();
+    // Check if this is a demo order ID
+    const isDemoOrder = id.startsWith('demo-');
+    
+    if (isDemoOrder) {
+      // Create a demo order object for display purposes
+      const demoOrder = {
+        _id: id,
+        user: { email: 'demo@example.com' },
+        orderItems: [
+          {
+            _id: 'demo-item-1',
+            name: 'Essential Kitchen Kit',
+            qty: 1,
+            price: 49.99,
+            image: '/images/premium-kitchenware.jpg',
+            slug: 'essential-kit'
+          },
+          {
+            _id: 'demo-item-2',
+            name: 'Premium Spice Collection',
+            qty: 1,
+            price: 19.99,
+            image: '/images/spice-collection.jpg',
+            slug: 'premium-spice-collection'
+          }
+        ],
+        rentalAddress: {
+          street: '123 Demo Street',
+          city: 'Example City',
+          state: 'CA',
+          postalCode: '90210',
+          country: 'USA'
+        },
+        paymentMethod: 'stripe',
+        taxPrice: 5.78,
+        deliveryPrice: 15.00,
+        damageProtection: true,
+        damageProtectionPrice: 7.00,
+        totalPrice: 97.76,
+        rentalStart: new Date(),
+        rentalEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        isPaid: true,
+        paidAt: new Date(),
+        status: 'confirmed'
+      };
+      
+      setOrder(demoOrder);
+      setLoading(false);
+    } else {
+      // This is a real order, fetch from API
+      const fetchOrder = async () => {
+        try {
+          setLoading(true);
+          const data = await getOrderDetails(id);
+          setOrder(data);
+          setLoading(false);
+        } catch (error) {
+          setError(error.message || 'Failed to load order details');
+          setLoading(false);
+        }
+      };
+  
+      fetchOrder();
+    }
   }, [id]);
 
   if (loading) {
@@ -80,8 +132,9 @@ const ConfirmationPage = () => {
                   <div key={item._id} className="order-item">
                     <div className="item-image">
                       <img 
-                        src={item.image.startsWith('http') ? item.image : `${item.image}`}
+                        src={getProductImageUrl(item.slug || 'default')}
                         alt={item.name} 
+                        onError={createImageErrorHandler('kitchen')}
                       />
                     </div>
                     <div className="item-details">

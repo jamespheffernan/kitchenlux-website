@@ -284,6 +284,7 @@ const BookingPage = () => {
       // In a real app, you would process payment with Stripe here
       // For now, we'll just simulate a successful payment
       
+      // Generate order data (would normally be sent to the server)
       const orderData = {
         orderItems: cartItems.map(item => ({
           name: item.name,
@@ -304,11 +305,23 @@ const BookingPage = () => {
         airbnbListing: useAirbnbListing ? airbnbListingUrl : null,
       };
       
-      const createdOrder = await createOrder(orderData);
-      
-      // Clear cart and redirect to confirmation page
-      clearCart();
-      navigate(`/confirmation/${createdOrder._id}`);
+      // Demo mode: Instead of calling the API, simulate a successful order
+      setTimeout(() => {
+        // Show success message
+        toast.success('Order placed successfully!');
+        
+        // Clear cart
+        clearCart();
+        
+        // Generate a random order ID for demo purposes
+        const demoOrderId = 'demo-' + Math.floor(Math.random() * 1000000);
+        
+        // Display order summary in console (for demo/debugging)
+        console.log('Demo Order Created:', orderData);
+        
+        // Navigate to a success page
+        navigate(`/confirmation/${demoOrderId}`);
+      }, 1500);
       
     } catch (error) {
       toast.error(error.message || 'Failed to place order. Please try again.');
