@@ -455,7 +455,7 @@ const BookingPage = () => {
                       name: 'Premium Spice Collection',
                       slug: 'premium-spice-collection',
                       price: 19.99,
-                      image: '/images/spice-collection.jpg'
+                      image: getProductImageUrl('premium-spice-collection')
                     }, 1)}
                   >
                     Add
@@ -477,9 +477,9 @@ const BookingPage = () => {
                     onClick={() => addToCart({
                       _id: 'chefs-knife-123',
                       name: 'Professional Chef\'s Knife',
-                      slug: 'professional-chefs-knife',
+                      slug: 'knife-master-collection',
                       price: 14.99,
-                      image: '/images/chefs-knife.jpg'
+                      image: getProductImageUrl('knife-master-collection')
                     }, 1)}
                   >
                     Add
