@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { getProductImageUrl, getFallbackImageUrl, createImageErrorHandler } from '../utils/imageUtils';
 import './BookingPage.css';
 
 const BookingPage = () => {
@@ -342,7 +343,11 @@ const BookingPage = () => {
               {cartItems.map((item) => (
                 <div key={item._id} className="cart-preview-item">
                   <div className="item-image">
-                    <img src={item.image} alt={item.name} />
+                    <img 
+                      src={getProductImageUrl(item.slug || 'default')} 
+                      alt={item.name}
+                      onError={createImageErrorHandler('kitchen')}
+                    />
                   </div>
                   <div className="item-details">
                     <h4>{item.name}</h4>
@@ -366,7 +371,11 @@ const BookingPage = () => {
               onClick={() => handleProductSelect(product)}
             >
               <div className="product-image">
-                <img src={product.image} alt={product.name} />
+                <img 
+                  src={getProductImageUrl(product.slug || 'default')} 
+                  alt={product.name}
+                  onError={createImageErrorHandler('kitchen')}
+                />
               </div>
               <div className="product-details">
                 <h3>{product.name}</h3>
@@ -618,7 +627,11 @@ const BookingPage = () => {
               {cartItems.map((item) => (
                 <div key={item._id} className="review-item">
                   <div className="item-image">
-                    <img src={item.image} alt={item.name} />
+                    <img 
+                      src={getProductImageUrl(item.slug || 'default')} 
+                      alt={item.name}
+                      onError={createImageErrorHandler('kitchen')}
+                    />
                   </div>
                   <div className="item-details">
                     <h4>{item.name}</h4>
