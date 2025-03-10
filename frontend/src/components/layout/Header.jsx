@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { CartContext } from '../../context/CartContext';
+import { getProductImageUrl, createImageErrorHandler } from '../../utils/imageUtils';
 import './Header.css';
 
 const Header = () => {
@@ -92,7 +93,11 @@ const Header = () => {
               {cartItems.map(item => (
                 <div key={item._id} className="cart-item">
                   <div className="cart-item-image">
-                    <img src={item.image} alt={item.name} />
+                    <img 
+                      src={getProductImageUrl(item.slug || 'default')}
+                      alt={item.name}
+                      onError={createImageErrorHandler('kitchen')} 
+                    />
                   </div>
                   <div className="cart-item-details">
                     <h4>{item.name}</h4>
