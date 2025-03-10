@@ -25,38 +25,33 @@ const HowItWorksPage = () => {
           <div className="steps">
             <div className="step">
               <div className="step-number">1</div>
-              <div className="step-content">
-                <h3>Choose Your Collection</h3>
-                <p>Browse our curated kitchenware collections or build your own custom set with exactly what you need for your vacation cooking plans.</p>
-              </div>
+              <div className="step-icon">🍽️</div>
+              <h3>Choose Your Collection</h3>
+              <p>Browse our curated kitchenware collections or build your own custom set with exactly what you need.</p>
             </div>
             <div className="step">
               <div className="step-number">2</div>
-              <div className="step-content">
-                <h3>Book Online</h3>
-                <p>Enter your vacation dates and rental address. Select any add-ons like specialty items, appliances, or premium spice collections.</p>
-              </div>
+              <div className="step-icon">📅</div>
+              <h3>Book Online</h3>
+              <p>Enter your vacation dates and rental address. Add specialty items or premium spice collections.</p>
             </div>
             <div className="step">
               <div className="step-number">3</div>
-              <div className="step-content">
-                <h3>We Deliver</h3>
-                <p>Your kitchenware arrives in a secure case before your arrival, sanitized, inspected, and ready to use right away.</p>
-              </div>
+              <div className="step-icon">📦</div>
+              <h3>We Deliver</h3>
+              <p>Your kitchenware arrives in a secure case before your arrival, sanitized and ready to use.</p>
             </div>
             <div className="step">
               <div className="step-number">4</div>
-              <div className="step-content">
-                <h3>Cook & Enjoy</h3>
-                <p>Prepare delicious meals with professional-grade tools during your entire stay, enhancing your vacation experience.</p>
-              </div>
+              <div className="step-icon">👨‍🍳</div>
+              <h3>Cook & Enjoy</h3>
+              <p>Prepare delicious meals with professional-grade tools during your entire vacation stay.</p>
             </div>
             <div className="step">
               <div className="step-number">5</div>
-              <div className="step-content">
-                <h3>Easy Return</h3>
-                <p>Simply place everything back in the case. We'll pick it up after your departure—no cleaning required!</p>
-              </div>
+              <div className="step-icon">♻️</div>
+              <h3>Easy Return</h3>
+              <p>Simply place everything back in the case. We'll pick it up after your departure—no cleaning required!</p>
             </div>
           </div>
         </div>
